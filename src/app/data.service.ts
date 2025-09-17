@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Department } from './table-two/Department';
+import { Product }  from './product-table/Product'
 
 @Injectable({
   providedIn: 'root'
@@ -40,5 +41,33 @@ export class DataService {
       .set('id', id);
 
       return this.http.post(DataService.urlRoot + '/Department/Delete', params);
+  }
+
+  getProducts(): Observable<Product[]> {
+    return this.http.get<Product[]>(`${DataService.urlRoot}/Product/Get`);
+  }
+
+  addProduct(name: string, code: string) : Observable<Object>  {
+    const params = new HttpParams()
+      .set('name', name)
+      .set('code', code);
+
+    return this.http.post(DataService.urlRoot + '/Product/Create',  params);
+  }
+
+  updateProduct(id: number, name: string, code: string) : Observable<Object>  {
+    const params = new HttpParams()
+      .set('id', id)
+      .set('name', name)
+      .set('code', code);
+
+    return this.http.post(DataService.urlRoot + '/Product/Update',  params);
+  }
+
+  deleteProduct(id: number) : Observable<Object> {
+    const params = new HttpParams()
+      .set('id', id);
+
+      return this.http.post(DataService.urlRoot + '/Product/Delete', params);
   }
 }
