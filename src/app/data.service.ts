@@ -8,7 +8,7 @@ import { Department } from './table-two/Department';
 })
 export class DataService {
 
-  private static urlRoot: string = 'http://localhost:5189';
+  private static urlRoot: string = 'https://inventory-api-fchmfhembrd0d4aw.centralus-01.azurewebsites.net';
 
   private http = inject(HttpClient);
 
