@@ -1,6 +1,6 @@
-<h1 mat-title>Departments</h1>
+<h1 mat-title>Products</h1>
 <div>
-  <button mat-flat-button (click)="addDepartment()">Add</button>
+  <button mat-flat-button (click)="addProduct()">Add</button>
 </div>
 
 <div>
@@ -30,8 +30,8 @@
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let element">
-      <button mat-flat-button (click)="editDepartment(element.id, element.name, element.code)" style="margin-right: 10px;">Edit</button>
-      <button mat-flat-button (click)="deleteDepartment(element.id)">Delete</button>
+      <button mat-flat-button (click)="editProduct(element.id, element.name, element.code)" style="margin-right: 10px;">Edit</button>
+      <button mat-flat-button (click)="deleteProduct(element.id)">Delete</button>
     </td>
   </ng-container>
 
