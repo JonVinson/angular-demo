@@ -15,22 +15,28 @@
     <td mat-cell *matCellDef="let element"> {{element.id}} </td>
   </ng-container>
 
-  <!-- Name Column -->
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef> Name </th>
-    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  <!-- Dept Column -->
+  <ng-container matColumnDef="departmentCode">
+    <th mat-header-cell *matHeaderCellDef> Department </th>
+    <td mat-cell *matCellDef="let element"> {{element.departmentCode}} </td>
   </ng-container>
 
-  <!-- Code Column -->
-  <ng-container matColumnDef="code">
-    <th mat-header-cell *matHeaderCellDef> Code </th>
-    <td mat-cell *matCellDef="let element"> {{element.code}} </td>
+  <!-- Manu Column -->
+  <ng-container matColumnDef="manufacturerCode">
+    <th mat-header-cell *matHeaderCellDef> Manufacturer </th>
+    <td mat-cell *matCellDef="let element"> {{element.manufacturerCode}} </td>
+  </ng-container>
+
+  <!-- Manu Column -->
+  <ng-container matColumnDef="description">
+    <th mat-header-cell *matHeaderCellDef> Description </th>
+    <td mat-cell *matCellDef="let element"> {{element.description}} </td>
   </ng-container>
 
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let element">
-      <button mat-flat-button (click)="editProduct(element.id, element.name, element.code)" style="margin-right: 10px;">Edit</button>
+      <button mat-flat-button (click)="editProduct(element.id, element.manufacturerCode, element.departmentCode)" style="margin-right: 10px;">Edit</button>
       <button mat-flat-button (click)="deleteProduct(element.id)">Delete</button>
     </td>
   </ng-container>
