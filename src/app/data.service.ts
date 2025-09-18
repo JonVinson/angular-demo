@@ -3,12 +3,14 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Department } from './table-two/Department';
 
+import { environment } from './../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  private static urlRoot: string = 'https://inventory-api-fchmfhembrd0d4aw.centralus-01.azurewebsites.net';
+  private static urlRoot: string = environment.DATA_SERVICE_ROOT_URL;
 
   private http = inject(HttpClient);
 
