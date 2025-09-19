@@ -45,8 +45,13 @@ export class DataService {
       return this.http.post(DataService.urlRoot + '/Department/Delete', params);
   }
 
-  getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${DataService.urlRoot}/Product/Get`);
+  getProducts(deptId: number, manuId: number, name: string): Observable<Product[]> {
+    const params = new HttpParams()
+      .set('name', name)
+      .set('deptId', deptId)
+      .set('manuId', manuId);
+
+      return this.http.get<Product[]>(`${DataService.urlRoot}/Product/Get`, { params: params });
   }
 
   addProduct(name: string, code: string) : Observable<Object>  {

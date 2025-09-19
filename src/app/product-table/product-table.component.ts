@@ -29,9 +29,9 @@ import { MatInputModule } from '@angular/material/input';
   imports: [MatTableModule, MatButtonModule],
 })
 export class ProductTableComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'name', 'code', 'actions'];
+  displayedColumns: string[] = ['departmentCode', 'manufacturerCode', 'description', 'actions'];
   service = inject(DataService);
-  dataSource = new TableDs<Product>(this.service.getProducts); // ELEMENT_DATA;
+  dataSource = new TableDs<Product>(() => this.service.getProducts(0, 0, '')); // ELEMENT_DATA;
 
   readonly dialog = inject(MatDialog);
 
