@@ -1,10 +1,6 @@
-import { CollectionViewer } from '@angular/cdk/collections';
-import { DataSource } from '@angular/cdk/table';
-import { HttpClient } from '@angular/common/http';
 import {ChangeDetectionStrategy, Component, Inject, inject, OnInit} from '@angular/core';
 import {MatTableModule} from '@angular/material/table';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { Department } from './Department';
+import { Product } from './Product';
 import { MatButtonModule } from '@angular/material/button';
 import { DataService } from '../data.service';
 import {
@@ -20,19 +16,21 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { TableDs } from '../table-ds';
+
 /**
  * @title Basic use of `<table mat-table>`
  */
+
 @Component({
-  selector: 'table-two',
-  styleUrl: 'table-two.component.scss',
-  templateUrl: 'table-two.component.html',
+  selector: 'product-table',
+  styleUrl: 'product-table.component.scss',
+  templateUrl: 'product-table.component.html',
   imports: [MatTableModule, MatButtonModule],
 })
-export class TableTwoComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'name', 'code', 'actions'];
+export class ProductTableComponent implements OnInit {
+  displayedColumns: string[] = ['departmentCode', 'manufacturerCode', 'description', 'actions'];
   service = inject(DataService);
-  dataSource = new TableDs<Department>(this.service.getDepartments); // ELEMENT_DATA;
+  dataSource = new TableDs<Product>(() => this.service.getProducts(0, 0, '')); // ELEMENT_DATA;
 
   readonly dialog = inject(MatDialog);
 
@@ -40,35 +38,35 @@ export class TableTwoComponent implements OnInit {
     this.dataSource.refresh();
   }
   
-  addDepartment() : void {
-    let dialogRef = this.dialog.open(AddDepartmentDialog, { data: { name: '', code: ''} }).afterClosed().subscribe(data => {
+  addProduct() : void {
+    let dialogRef = this.dialog.open(AddProductDialog, { data: { name: '', code: ''} }).afterClosed().subscribe(data => {
       if (data != "cancel") {
         console.log("Adding " + data);
-        this.service.addDepartment(data.name, data.code).subscribe(data => this.dataSource.refresh());
+        this.service.addProduct(data.name, data.code).subscribe(data => this.dataSource.refresh());
       } else {
         console.log("Add canceled");
       }
     });
   }
   
-  editDepartment(id: number, name: string, code: string) : void {
-    let dialogRef = this.dialog.open(EditDepartmentDialog, { data: { name: name, code: code} }).afterClosed().subscribe(data => {
+  editProduct(id: number, name: string, code: string) : void {
+    let dialogRef = this.dialog.open(EditProductDialog, { data: { name: name, code: code} }).afterClosed().subscribe(data => {
       if (data != "cancel") {
         console.log("Adding " + data);
-        this.service.updateDepartment(id, data.name, data.code).subscribe(data => this.dataSource.refresh());
+        this.service.updateProduct(id, data.name, data.code).subscribe(data => this.dataSource.refresh());
       } else {
         console.log("Add canceled");
       }
     });
   }
 
-  deleteDepartment(id: number) : void {
-    this.dialog.open(DeleteDepartmentDialog, {
+  deleteProduct(id: number) : void {
+    this.dialog.open(DeleteProductDialog, {
       data:  { id: id }
     }).afterClosed().subscribe((yes: Boolean) => {
       if (yes) {
         console.log("Deleting " + id);
-        this.service.deleteDepartment(id).subscribe(data => this.dataSource.refresh());
+        this.service.deleteProduct(id).subscribe(data => this.dataSource.refresh());
       } else {
         console.log("Delete canceled");
       }
@@ -77,24 +75,24 @@ export class TableTwoComponent implements OnInit {
 }
 
 @Component({
-  selector: 'delete-department-dialog',
-  templateUrl: 'delete-department-dialog.html',
+  selector: 'delete-product-dialog',
+  templateUrl: 'delete-product-dialog.html',
   imports: [MatButtonModule, MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DeleteDepartmentDialog {
-  readonly dialogRef = inject(MatDialogRef<DeleteDepartmentDialog>);
+export class DeleteProductDialog {
+  readonly dialogRef = inject(MatDialogRef<DeleteProductDialog>);
   constructor(@Inject(MAT_DIALOG_DATA) public data: {id: number}) { }
 }
 
 @Component({
-  selector: 'add-department-dialog',
-  templateUrl: 'add-department-dialog.html',
+  selector: 'add-product-dialog',
+  templateUrl: 'add-product-dialog.html',
   imports: [MatButtonModule, MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent, FormsModule, MatFormFieldModule, MatInputModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AddDepartmentDialog {
-  readonly dialogRef = inject(MatDialogRef<AddDepartmentDialog>);
+export class AddProductDialog {
+  readonly dialogRef = inject(MatDialogRef<AddProductDialog>);
   constructor(@Inject(MAT_DIALOG_DATA) public data: {name: string, code: string}) { }
   closeDialog() : void {
     this.dialogRef.close(this.data);
@@ -102,13 +100,13 @@ export class AddDepartmentDialog {
 }
 
 @Component({
-  selector: 'edit-department-dialog',
-  templateUrl: 'edit-department-dialog.html',
+  selector: 'edit-product-dialog',
+  templateUrl: 'edit-product-dialog.html',
   imports: [MatButtonModule, MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent, FormsModule, MatFormFieldModule, MatInputModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EditDepartmentDialog {
-  readonly dialogRef = inject(MatDialogRef<AddDepartmentDialog>);
+export class EditProductDialog {
+  readonly dialogRef = inject(MatDialogRef<AddProductDialog>);
   constructor(@Inject(MAT_DIALOG_DATA) public data: {name: string, code: string}) { }
   closeDialog() : void {
     this.dialogRef.close(this.data);
