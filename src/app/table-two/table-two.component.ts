@@ -19,6 +19,7 @@ import {
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { TableDs } from '../table-ds';
 /**
  * @title Basic use of `<table mat-table>`
  */
@@ -31,7 +32,7 @@ import { MatInputModule } from '@angular/material/input';
 export class TableTwoComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'code', 'actions'];
   service = inject(DataService);
-  dataSource = new TableTwoDs<Department>(this.service.getDepartments); // ELEMENT_DATA;
+  dataSource = new TableDs<Department>(this.service.getDepartments); // ELEMENT_DATA;
 
   readonly dialog = inject(MatDialog);
 
@@ -71,30 +72,6 @@ export class TableTwoComponent implements OnInit {
       } else {
         console.log("Delete canceled");
       }
-    });
-  }
-}
-
-export class TableTwoDs<T> implements DataSource<T> {
-  private subject = new BehaviorSubject<T[]>([]);
-  private http: HttpClient = inject(HttpClient);
-  private refreshMethod: () => Observable<T[]>;
-
-  constructor (refreshMethod: () => Observable<T[]>) {
-    this.refreshMethod = refreshMethod;
-  }
-
-  connect(collectionViewer: CollectionViewer): Observable<T[]> {
-    return this.subject.asObservable();
-  }
-
-  disconnect(collectionViewer: CollectionViewer): void {
-      this.subject.complete();
-  }
-
-  refresh() : void {
-    this.refreshMethod().subscribe(data => {
-      this.subject.next(data);
     });
   }
 }
