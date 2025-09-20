@@ -16,6 +16,9 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { TableDs } from '../table-ds';
+import { ListItem, SelectorComponent } from "../selector/selector.component";
+import { map, Observable } from 'rxjs';
+import { Department } from '../table-two/Department';
 
 /**
  * @title Basic use of `<table mat-table>`
@@ -25,16 +28,18 @@ import { TableDs } from '../table-ds';
   selector: 'product-table',
   styleUrl: 'product-table.component.scss',
   templateUrl: 'product-table.component.html',
-  imports: [MatTableModule, MatButtonModule],
+  imports: [MatTableModule, MatButtonModule, SelectorComponent],
 })
 export class ProductTableComponent implements OnInit {
   displayedColumns: string[] = ['departmentCode', 'manufacturerCode', 'description', 'actions'];
   service = inject(DataService);
   dataSource = new TableDs<Product>(() => this.service.getProducts(0, 0, '')); // ELEMENT_DATA;
+  departments: ListItem[] = [];
 
   readonly dialog = inject(MatDialog);
 
   ngOnInit(): void {
+    this.getDepartments();
     this.dataSource.refresh();
   }
   
@@ -71,6 +76,10 @@ export class ProductTableComponent implements OnInit {
         console.log("Delete canceled");
       }
     });
+  }
+
+  public getDepartments() : void {
+    this.service.getDepartments().subscribe((list : Department[]) => this.departments = list.map((item) => new ListItem(item.id, item.code)));
   }
 }
 

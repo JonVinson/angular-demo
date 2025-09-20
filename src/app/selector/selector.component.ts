@@ -9,17 +9,17 @@ import { Observable } from 'rxjs/internal/Observable';
   styleUrl: './selector.component.scss',
   imports: [MatFormFieldModule, MatSelect, MatOption]
 })
-export class SelectorComponent implements OnInit {
+export class SelectorComponent {
   label  = input<string>();
-  
-  private source : () => Observable<{ itemValue : any, itemText : string }[]>;
-  list : { itemValue: any, itemText: string }[] = [];
+  source = input<ListItem[]>();
+}
 
-  constructor(@Attribute('source') public sourceMethod :  () => Observable<{ itemValue : any, itemText : string }[]> ) {
-    this.source = sourceMethod;
-  }
+export class ListItem {
+  public itemValue : any;
+  public itemText : string = '';
 
-  ngOnInit(): void {
-    this.source().subscribe((data) => { this.list = data; });
+  constructor(v : any, t : string) {
+    this.itemText = t;
+    this.itemValue = v;
   }
 }
