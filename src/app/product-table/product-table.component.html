@@ -4,8 +4,8 @@
 </div>
 
 <div>
-  <app-selector [source]="departments"></app-selector>
-  <app-selector [source]="manufacturers"></app-selector>
+  <app-selector label="Department" [source]="departments" [(selectedValue)]="departmentId" (selectedValueChange)="refresh()"></app-selector>
+  <app-selector label="Manufacturer" [source]="manufacturers" [(selectedValue)]="manufacturerId" (selectedValueChange)="refresh()"></app-selector>
 </div>
 
 <div>

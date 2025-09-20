@@ -33,16 +33,24 @@ import { Department } from '../inventory-objects';
 export class ProductTableComponent implements OnInit {
   displayedColumns: string[] = ['departmentCode', 'manufacturerCode', 'description', 'actions'];
   service = inject(DataService);
-  dataSource = new TableDs<Product>(() => this.service.getProducts(0, 0, '')); // ELEMENT_DATA;
+  dataSource = new TableDs<Product>(() => this.service.getProducts(this.departmentId, this.manufacturerId, this.description)); // ELEMENT_DATA;
   
   departments: ListItem[] = [];
   manufacturers: ListItem[] = [];
+
+  departmentId : number = 0;
+  manufacturerId : number = 0;
+  description : string = ''
 
   readonly dialog = inject(MatDialog);
 
   ngOnInit(): void {
     this.getDepartments();
     this.getManufacturers();
+    this.refresh();
+  }
+
+  refresh(): void {
     this.dataSource.refresh();
   }
   

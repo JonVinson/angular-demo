@@ -1,4 +1,4 @@
-import { Attribute, Component, input, OnInit } from '@angular/core';
+import { Attribute, Component, input, model, OnInit } from '@angular/core';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatOption, MatSelect } from '@angular/material/select';
 import { Observable } from 'rxjs/internal/Observable';
@@ -12,6 +12,7 @@ import { Observable } from 'rxjs/internal/Observable';
 export class SelectorComponent {
   label  = input<string>();
   source = input<ListItem[]>();
+  selectedValue = model();
 }
 
 export class ListItem {
