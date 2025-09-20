@@ -1,8 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Department } from './table-two/Department';
-import { Product }  from './product-table/Product'
+import { Department, Manufacturer, Product } from './inventory-objects';
 
 import { environment } from './../environments/environment';
 
@@ -77,4 +76,9 @@ export class DataService {
 
       return this.http.post(DataService.urlRoot + '/Product/Delete', params);
   }
+
+  getManufacturers(): Observable<Manufacturer[]> {
+    return this.http.get<Manufacturer[]>(`${DataService.urlRoot}/Manufacturer/Get`);
+  }
+
 }

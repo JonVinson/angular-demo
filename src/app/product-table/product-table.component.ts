@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, Inject, inject, OnInit} from '@angular/core';
 import {MatTableModule} from '@angular/material/table';
-import { Product } from './Product';
+import { Manufacturer, Product } from '../inventory-objects';
 import { MatButtonModule } from '@angular/material/button';
 import { DataService } from '../data.service';
 import {
@@ -18,7 +18,7 @@ import { MatInputModule } from '@angular/material/input';
 import { TableDs } from '../table-ds';
 import { ListItem, SelectorComponent } from "../selector/selector.component";
 import { map, Observable } from 'rxjs';
-import { Department } from '../table-two/Department';
+import { Department } from '../inventory-objects';
 
 /**
  * @title Basic use of `<table mat-table>`
@@ -34,12 +34,15 @@ export class ProductTableComponent implements OnInit {
   displayedColumns: string[] = ['departmentCode', 'manufacturerCode', 'description', 'actions'];
   service = inject(DataService);
   dataSource = new TableDs<Product>(() => this.service.getProducts(0, 0, '')); // ELEMENT_DATA;
+  
   departments: ListItem[] = [];
+  manufacturers: ListItem[] = [];
 
   readonly dialog = inject(MatDialog);
 
   ngOnInit(): void {
     this.getDepartments();
+    this.getManufacturers();
     this.dataSource.refresh();
   }
   
@@ -80,6 +83,10 @@ export class ProductTableComponent implements OnInit {
 
   public getDepartments() : void {
     this.service.getDepartments().subscribe((list : Department[]) => this.departments = list.map((item) => new ListItem(item.id, item.code)));
+  }
+
+  public getManufacturers() : void {
+    this.service.getManufacturers().subscribe((list : Manufacturer[]) => this.manufacturers = list.map((item) => new ListItem(item.id, item.code)));
   }
 }
 

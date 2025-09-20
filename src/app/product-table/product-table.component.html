@@ -1,7 +1,11 @@
 <h1 mat-title>Products</h1>
 <div>
   <button mat-flat-button (click)="addProduct()">Add</button>
+</div>
+
+<div>
   <app-selector [source]="departments"></app-selector>
+  <app-selector [source]="manufacturers"></app-selector>
 </div>
 
 <div>
