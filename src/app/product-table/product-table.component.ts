@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Inject, inject, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Inject, inject, model, OnInit} from '@angular/core';
 import {MatTableModule} from '@angular/material/table';
 import { Manufacturer, Product } from '../inventory-objects';
 import { MatButtonModule } from '@angular/material/button';
@@ -19,6 +19,7 @@ import { TableDs } from '../table-ds';
 import { ListItem, SelectorComponent } from "../selector/selector.component";
 import { map, Observable } from 'rxjs';
 import { Department } from '../inventory-objects';
+import { TextFilterComponent } from "../text-filter/text-filter.component";
 
 /**
  * @title Basic use of `<table mat-table>`
@@ -28,7 +29,7 @@ import { Department } from '../inventory-objects';
   selector: 'product-table',
   styleUrl: 'product-table.component.scss',
   templateUrl: 'product-table.component.html',
-  imports: [MatTableModule, MatButtonModule, SelectorComponent],
+  imports: [MatTableModule, MatButtonModule, SelectorComponent, MatFormFieldModule, TextFilterComponent],
 })
 export class ProductTableComponent implements OnInit {
   displayedColumns: string[] = ['departmentCode', 'manufacturerCode', 'description', 'actions'];
@@ -40,7 +41,7 @@ export class ProductTableComponent implements OnInit {
 
   departmentId : number = 0;
   manufacturerId : number = 0;
-  description : string = ''
+  description : string = "";
 
   readonly dialog = inject(MatDialog);
 
