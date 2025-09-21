@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Inject, inject, model, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Inject, inject, model, OnInit, ViewEncapsulation} from '@angular/core';
 import {MatTableModule} from '@angular/material/table';
 import { Manufacturer, Product } from '../inventory-objects';
 import { MatButtonModule } from '@angular/material/button';
@@ -30,6 +30,7 @@ import { TextFilterComponent } from "../text-filter/text-filter.component";
   styleUrl: 'product-table.component.scss',
   templateUrl: 'product-table.component.html',
   imports: [MatTableModule, MatButtonModule, SelectorComponent, MatFormFieldModule, TextFilterComponent],
+  encapsulation: ViewEncapsulation.None
 })
 export class ProductTableComponent implements OnInit {
   displayedColumns: string[] = ['departmentCode', 'manufacturerCode', 'description', 'actions'];
