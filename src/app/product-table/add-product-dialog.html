@@ -1,12 +1,10 @@
-<h2 mat-dialog-title>New Department</h2>
+<h2 mat-dialog-title>New Products</h2>
 <mat-dialog-content>
-  <mat-form-field style="margin-right: 10px;">
-    <mat-label>Name</mat-label>
-    <input matInput [(ngModel)]="data.name" />
-  </mat-form-field>
+  <app-selector label="Department" [source]="data.departments" [(selectedValue)]="data.deptId"></app-selector>
+  <app-selector label="Manufacturer" [source]="data.manufacturers" [(selectedValue)]="data.manuId"></app-selector>
   <mat-form-field>
-    <mat-label>Code</mat-label>
-    <input matInput [(ngModel)]="data.code" />
+    <mat-label>Description</mat-label>
+    <input matInput [(ngModel)]="data.description" />
   </mat-form-field>
 </mat-dialog-content>
 

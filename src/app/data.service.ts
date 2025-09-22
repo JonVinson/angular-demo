@@ -53,10 +53,11 @@ export class DataService {
       return this.http.get<Product[]>(`${DataService.urlRoot}/Product/Get`, { params: params });
   }
 
-  addProduct(name: string, code: string) : Observable<Object>  {
+  addProduct(deptId: number, manuId: number, description: number) : Observable<Object>  {
     const params = new HttpParams()
-      .set('name', name)
-      .set('code', code);
+      .set('departmentId', deptId)
+      .set('manufacturerId', manuId)
+      .set('description', description);
 
     return this.http.post(DataService.urlRoot + '/Product/Create',  params);
   }
