@@ -20,7 +20,7 @@ import { ListItem, SelectorComponent } from "../selector/selector.component";
 import { map, Observable } from 'rxjs';
 import { Department } from '../inventory-objects';
 import { TextFilterComponent } from "../text-filter/text-filter.component";
-
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 /**
  * @title Basic use of `<table mat-table>`
  */
@@ -29,7 +29,7 @@ import { TextFilterComponent } from "../text-filter/text-filter.component";
   selector: 'product-table',
   styleUrl: 'product-table.component.scss',
   templateUrl: 'product-table.component.html',
-  imports: [MatTableModule, MatButtonModule, SelectorComponent, MatFormFieldModule, TextFilterComponent],
+  imports: [MatTableModule, MatButtonModule, SelectorComponent, MatFormFieldModule, TextFilterComponent, MatProgressSpinner],
   encapsulation: ViewEncapsulation.None
 })
 export class ProductTableComponent implements OnInit {

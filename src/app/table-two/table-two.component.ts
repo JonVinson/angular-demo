@@ -20,6 +20,7 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { TableDs } from '../table-ds';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 /**
  * @title Basic use of `<table mat-table>`
  */
@@ -27,7 +28,7 @@ import { TableDs } from '../table-ds';
   selector: 'table-two',
   styleUrl: 'table-two.component.scss',
   templateUrl: 'table-two.component.html',
-  imports: [MatTableModule, MatButtonModule],
+  imports: [MatTableModule, MatButtonModule, MatProgressSpinner],
 })
 export class TableTwoComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'code', 'actions'];
@@ -39,7 +40,7 @@ export class TableTwoComponent implements OnInit {
   ngOnInit(): void {
     this.dataSource.refresh();
   }
-  
+
   addDepartment() : void {
     let dialogRef = this.dialog.open(AddDepartmentDialog, { data: { name: '', code: ''} }).afterClosed().subscribe(data => {
       if (data != "cancel") {

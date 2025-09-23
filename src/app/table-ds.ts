@@ -8,6 +8,8 @@ export class TableDs<T> implements DataSource<T> {
   private http: HttpClient = inject(HttpClient);
   private refreshMethod: () => Observable<T[]>;
 
+  ready: boolean = false;
+
   constructor (refreshMethod: () => Observable<T[]>) {
     this.refreshMethod = refreshMethod;
   }
@@ -22,6 +24,7 @@ export class TableDs<T> implements DataSource<T> {
 
   refresh() : void {
     this.refreshMethod().subscribe(data => {
+      this.ready = true;
       this.subject.next(data);
     });
   }
