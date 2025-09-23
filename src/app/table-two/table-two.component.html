@@ -3,6 +3,7 @@
   <button mat-flat-button (click)="addDepartment()">Add</button>
 </div>
 
+@defer (when dataSource.ready) {
 <div>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
@@ -39,5 +40,14 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 </div>
+}
+@placeholder {
+  <div class="centered">
+    <h1>Waking up the database...</h1>
+  </div>
+  <div class="centered-50">
+      <mat-spinner></mat-spinner>
+  </div>
+}
 
 
