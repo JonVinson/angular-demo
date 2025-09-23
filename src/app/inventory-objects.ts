@@ -11,6 +11,7 @@ export class Product {
   manufacturerId: number = 0;
   modelNumber: string = '';
   description: string = '';
+  price: number = 0;
 }
 
 export class Manufacturer {

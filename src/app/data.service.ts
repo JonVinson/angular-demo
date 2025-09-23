@@ -58,7 +58,8 @@ export class DataService {
       .set('departmentId', product.departmentId)
       .set('manufacturerId', product.manufacturerId)
       .set('modelNumber', product.modelNumber)
-      .set('description', product.description);
+      .set('description', product.description)
+      .set('price', product.price);
 
     return this.http.post(DataService.urlRoot + '/Product/Create',  params);
   }
@@ -69,7 +70,8 @@ export class DataService {
       .set('departmentId', product.departmentId)
       .set('manufacturerId', product.manufacturerId)
       .set('modelNumber', product.modelNumber)
-      .set('description', product.description);
+      .set('description', product.description)
+      .set('price', product.price);
 
     return this.http.post(DataService.urlRoot + '/Product/Update',  params);
   }

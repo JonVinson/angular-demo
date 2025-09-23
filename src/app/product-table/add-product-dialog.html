@@ -3,8 +3,16 @@
   <app-selector label="Department" [source]="data.departments" [(selectedValue)]="data.product.departmentId"></app-selector>
   <app-selector label="Manufacturer" [source]="data.manufacturers" [(selectedValue)]="data.product.manufacturerId"></app-selector>
   <mat-form-field>
+    <mat-label>Model Number</mat-label>
+    <input matInput [(ngModel)]="data.product.modelNumber" />
+  </mat-form-field>
+  <mat-form-field>
     <mat-label>Description</mat-label>
     <input matInput [(ngModel)]="data.product.description" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Price</mat-label>
+    <input matInput [(ngModel)]="data.product.price" />
   </mat-form-field>
 </mat-dialog-content>
 

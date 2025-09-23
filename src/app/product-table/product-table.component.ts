@@ -33,7 +33,7 @@ import { TextFilterComponent } from "../text-filter/text-filter.component";
   encapsulation: ViewEncapsulation.None
 })
 export class ProductTableComponent implements OnInit {
-  displayedColumns: string[] = ['departmentCode', 'manufacturerCode', 'description', 'actions'];
+  displayedColumns: string[] = ['departmentCode', 'manufacturerCode', 'modelNumber', 'description', 'price', 'actions'];
   service = inject(DataService);
   dataSource = new TableDs<Product>(() => this.service.getProducts(this.departmentId, this.manufacturerId, this.description)); // ELEMENT_DATA;
   
