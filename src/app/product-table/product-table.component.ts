@@ -57,23 +57,35 @@ export class ProductTableComponent implements OnInit {
   }
   
   addProduct() : void {
-    let dialogRef = this.dialog.open(AddProductDialog, { data: {deptId: 0, manuId: 0, description: '', departments: this.departments, manufacturers: this.manufacturers} }).afterClosed().subscribe(data => {
+    let dialogRef = this.dialog.open(AddProductDialog, { 
+      data: {
+        title: 'New Product',
+        product: new Product,
+        departments: this.departments, 
+        manufacturers: this.manufacturers
+      } }).afterClosed().subscribe(data => {
       if (data != "cancel") {
         console.log("Adding " + data);
-        this.service.addProduct(data.deptId, data.manuId, data.description).subscribe(data => this.dataSource.refresh());
+        this.service.addProduct(data.product).subscribe(data => this.dataSource.refresh());
       } else {
         console.log("Add canceled");
       }
     });
   }
   
-  editProduct(id: number, name: string, code: string) : void {
-    let dialogRef = this.dialog.open(EditProductDialog, { data: { name: name, code: code} }).afterClosed().subscribe(data => {
+  editProduct(product: Product) : void {
+    let dialogRef = this.dialog.open(AddProductDialog, { 
+      data: { 
+        title: 'Edit Product',
+        product: structuredClone(product),
+        departments: this.departments, 
+        manufacturers: this.manufacturers
+      } }).afterClosed().subscribe(data => {
       if (data != "cancel") {
-        console.log("Adding " + data);
-        this.service.updateProduct(id, data.name, data.code).subscribe(data => this.dataSource.refresh());
+        console.log("Updating " + data);
+        this.service.updateProduct(data.product).subscribe(data => this.dataSource.refresh());
       } else {
-        console.log("Add canceled");
+        console.log("Update canceled");
       }
     });
   }
@@ -120,24 +132,13 @@ export class DeleteProductDialog {
 export class AddProductDialog {
   readonly dialogRef = inject(MatDialogRef<AddProductDialog>);
   constructor(@Inject(MAT_DIALOG_DATA) public data: {
+    title: string;
     manufacturers: ListItem[]|undefined;
-    departments: ListItem[]|undefined;deptId: number, manuId: number, description: string
+    departments: ListItem[]|undefined;
+    product: Product;
     }) { }
   closeDialog() : void {
     this.dialogRef.close(this.data);
   }
 }
 
-@Component({
-  selector: 'edit-product-dialog',
-  templateUrl: 'edit-product-dialog.html',
-  imports: [MatButtonModule, MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent, FormsModule, MatFormFieldModule, MatInputModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-})
-export class EditProductDialog {
-  readonly dialogRef = inject(MatDialogRef<AddProductDialog>);
-  constructor(@Inject(MAT_DIALOG_DATA) public data: {name: string, code: string}) { }
-  closeDialog() : void {
-    this.dialogRef.close(this.data);
-  }
-}

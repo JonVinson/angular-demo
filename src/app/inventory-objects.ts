@@ -7,9 +7,10 @@ export class Department {
 
 export class Product {
   id?: number;
-  name: string = '';
-  code: string = '';
-  products?: any;
+  departmentId: number = 0;
+  manufacturerId: number = 0;
+  modelNumber: string = '';
+  description: string = '';
 }
 
 export class Manufacturer {

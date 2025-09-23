@@ -1,14 +1,14 @@
-<h2 mat-dialog-title>New Products</h2>
+<h2 mat-dialog-title>{{data.title}}</h2>
 <mat-dialog-content>
-  <app-selector label="Department" [source]="data.departments" [(selectedValue)]="data.deptId"></app-selector>
-  <app-selector label="Manufacturer" [source]="data.manufacturers" [(selectedValue)]="data.manuId"></app-selector>
+  <app-selector label="Department" [source]="data.departments" [(selectedValue)]="data.product.departmentId"></app-selector>
+  <app-selector label="Manufacturer" [source]="data.manufacturers" [(selectedValue)]="data.product.manufacturerId"></app-selector>
   <mat-form-field>
     <mat-label>Description</mat-label>
-    <input matInput [(ngModel)]="data.description" />
+    <input matInput [(ngModel)]="data.product.description" />
   </mat-form-field>
 </mat-dialog-content>
 
 <mat-dialog-actions>
   <button mat-button mat-dialog-close="cancel">Cancel</button>
-  <button mat-button (click)="closeDialog()" cdkFocusInitial>Add</button>
+  <button mat-button (click)="closeDialog()" cdkFocusInitial>Save</button>
 </mat-dialog-actions>

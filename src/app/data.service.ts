@@ -53,20 +53,23 @@ export class DataService {
       return this.http.get<Product[]>(`${DataService.urlRoot}/Product/Get`, { params: params });
   }
 
-  addProduct(deptId: number, manuId: number, description: number) : Observable<Object>  {
+  addProduct(product: Product) : Observable<Object>  {
     const params = new HttpParams()
-      .set('departmentId', deptId)
-      .set('manufacturerId', manuId)
-      .set('description', description);
+      .set('departmentId', product.departmentId)
+      .set('manufacturerId', product.manufacturerId)
+      .set('modelNumber', product.modelNumber)
+      .set('description', product.description);
 
     return this.http.post(DataService.urlRoot + '/Product/Create',  params);
   }
 
-  updateProduct(id: number, name: string, code: string) : Observable<Object>  {
+  updateProduct(product: Product) : Observable<Object>  {
     const params = new HttpParams()
-      .set('id', id)
-      .set('name', name)
-      .set('code', code);
+      .set('id', product.id!)
+      .set('departmentId', product.departmentId)
+      .set('manufacturerId', product.manufacturerId)
+      .set('modelNumber', product.modelNumber)
+      .set('description', product.description);
 
     return this.http.post(DataService.urlRoot + '/Product/Update',  params);
   }

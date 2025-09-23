@@ -42,7 +42,7 @@
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let element">
-      <button mat-flat-button (click)="editProduct(element.id, element.manufacturerCode, element.departmentCode)" style="margin-right: 10px;">Edit</button>
+      <button mat-flat-button (click)="editProduct(element)" style="margin-right: 10px;">Edit</button>
       <button mat-flat-button (click)="deleteProduct(element.id)">Delete</button>
     </td>
   </ng-container>
