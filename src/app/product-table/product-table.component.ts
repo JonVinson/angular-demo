@@ -104,11 +104,11 @@ export class ProductTableComponent implements OnInit {
   }
 
   public getDepartments() : void {
-    this.service.getDepartments().subscribe((list : Department[]) => this.departments = list.map((item) => new ListItem(item.id, item.code)));
+    this.service.getDepartments().subscribe((list : Department[]) => this.departments = list.map((item) => new ListItem(item.id, item.name)));
   }
 
   public getManufacturers() : void {
-    this.service.getManufacturers().subscribe((list : Manufacturer[]) => this.manufacturers = list.map((item) => new ListItem(item.id, item.code)));
+    this.service.getManufacturers().subscribe((list : Manufacturer[]) => this.manufacturers = list.map((item) => new ListItem(item.id, item.name)));
   }
 }
 

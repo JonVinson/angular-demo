@@ -24,13 +24,13 @@
   <!-- Dept Column -->
   <ng-container matColumnDef="departmentCode">
     <th mat-header-cell *matHeaderCellDef> Department </th>
-    <td mat-cell *matCellDef="let element"> {{element.departmentCode}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.department.name}} </td>
   </ng-container>
 
   <!-- Manu Column -->
   <ng-container matColumnDef="manufacturerCode">
     <th mat-header-cell *matHeaderCellDef> Manufacturer </th>
-    <td mat-cell *matCellDef="let element"> {{element.manufacturerCode}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.manufacturer.name}} </td>
   </ng-container>
 
   <!-- Desc Column -->
