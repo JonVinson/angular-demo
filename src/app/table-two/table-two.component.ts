@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import {ChangeDetectionStrategy, Component, Inject, inject, OnInit} from '@angular/core';
 import {MatTableModule} from '@angular/material/table';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Department } from './Department';
+import { Department } from '../inventory-objects';
 import { MatButtonModule } from '@angular/material/button';
 import { DataService } from '../data.service';
 import {

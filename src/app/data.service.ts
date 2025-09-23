@@ -1,8 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Department } from './table-two/Department';
-import { Product }  from './product-table/Product'
+import { Department, Manufacturer, Product } from './inventory-objects';
 
 import { environment } from './../environments/environment';
 
@@ -54,19 +53,25 @@ export class DataService {
       return this.http.get<Product[]>(`${DataService.urlRoot}/Product/Get`, { params: params });
   }
 
-  addProduct(name: string, code: string) : Observable<Object>  {
+  addProduct(product: Product) : Observable<Object>  {
     const params = new HttpParams()
-      .set('name', name)
-      .set('code', code);
+      .set('departmentId', product.departmentId)
+      .set('manufacturerId', product.manufacturerId)
+      .set('modelNumber', product.modelNumber)
+      .set('description', product.description)
+      .set('price', product.price);
 
     return this.http.post(DataService.urlRoot + '/Product/Create',  params);
   }
 
-  updateProduct(id: number, name: string, code: string) : Observable<Object>  {
+  updateProduct(product: Product) : Observable<Object>  {
     const params = new HttpParams()
-      .set('id', id)
-      .set('name', name)
-      .set('code', code);
+      .set('id', product.id!)
+      .set('departmentId', product.departmentId)
+      .set('manufacturerId', product.manufacturerId)
+      .set('modelNumber', product.modelNumber)
+      .set('description', product.description)
+      .set('price', product.price);
 
     return this.http.post(DataService.urlRoot + '/Product/Update',  params);
   }
@@ -77,4 +82,9 @@ export class DataService {
 
       return this.http.post(DataService.urlRoot + '/Product/Delete', params);
   }
+
+  getManufacturers(): Observable<Manufacturer[]> {
+    return this.http.get<Manufacturer[]>(`${DataService.urlRoot}/Manufacturer/Get`);
+  }
+
 }

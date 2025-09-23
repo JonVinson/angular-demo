@@ -1,7 +1,13 @@
 <h1 mat-title>Products</h1>
 <div>
   <button mat-flat-button (click)="addProduct()">Add</button>
+  <div class="float-right">
+    <app-selector label="Department" [source]="departments" [(selectedValue)]="departmentId" (selectedValueChange)="refresh()"></app-selector>
+    <app-selector label="Manufacturer" [source]="manufacturers" [(selectedValue)]="manufacturerId" (selectedValueChange)="refresh()"></app-selector>
+    <app-text-filter label="Description" [(text)]="description" (textChange)="refresh()"></app-text-filter>
+  </div>
 </div>
+
 
 <div>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
@@ -27,16 +33,28 @@
     <td mat-cell *matCellDef="let element"> {{element.manufacturerCode}} </td>
   </ng-container>
 
-  <!-- Manu Column -->
+  <!-- Desc Column -->
+  <ng-container matColumnDef="modelNumber">
+    <th mat-header-cell *matHeaderCellDef> Model </th>
+    <td mat-cell *matCellDef="let element"> {{element.modelNumber}} </td>
+  </ng-container>
+
+  <!-- Desc Column -->
   <ng-container matColumnDef="description">
     <th mat-header-cell *matHeaderCellDef> Description </th>
     <td mat-cell *matCellDef="let element"> {{element.description}} </td>
   </ng-container>
 
+  <!-- Desc Column -->
+  <ng-container matColumnDef="price">
+    <th mat-header-cell *matHeaderCellDef> Price </th>
+    <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+  </ng-container>
+
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let element">
-      <button mat-flat-button (click)="editProduct(element.id, element.manufacturerCode, element.departmentCode)" style="margin-right: 10px;">Edit</button>
+      <button mat-flat-button (click)="editProduct(element)" style="margin-right: 10px;">Edit</button>
       <button mat-flat-button (click)="deleteProduct(element.id)">Delete</button>
     </td>
   </ng-container>
