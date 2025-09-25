@@ -20,7 +20,7 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { TableDs } from '../table-ds';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { WaitMessageComponent } from "../wait-message/wait-message.component";
 /**
  * @title Basic use of `<table mat-table>`
  */
@@ -28,7 +28,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
   selector: 'table-two',
   styleUrl: 'table-two.component.scss',
   templateUrl: 'table-two.component.html',
-  imports: [MatTableModule, MatButtonModule, MatProgressSpinner],
+  imports: [MatTableModule, MatButtonModule, WaitMessageComponent],
 })
 export class TableTwoComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'code', 'actions'];

@@ -1,0 +1,15 @@
+.centered {
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: center;    /* Centers vertically */
+  width: 100%;
+}
+
+.centered-50 {
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: center;    /* Centers vertically */
+  height: 50vh; /* Example: set a height for the container */
+  width: 100%;
+}
+
