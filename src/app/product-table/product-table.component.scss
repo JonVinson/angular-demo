@@ -20,3 +20,33 @@ mat-form-field {
   height: 50vh; /* Example: set a height for the container */
   width: 100%;
 }
+
+.main-container {
+  display: flex;
+  flex-direction: column; /* For vertical layout */
+  height: inherit; /* Or a specific height for the parent */
+}
+
+.table-container {
+  display: flex;
+  flex-direction: column; /* For vertical layout */
+  height: calc(100vh - 275px);
+}
+
+/* Optional: To ensure the header remains visible while scrolling the body */
+.table-container table {
+  width: 100%; /* Ensure the table takes full width of the container */
+  border-collapse: collapse; /* For better table rendering */
+}
+
+.table-container thead, .table-container tbody tr {
+  display: table;
+  height: 50px;
+  width: 100%;
+  table-layout: fixed; /* Ensures columns align when header and body are separate */
+}
+
+.table-container tbody {
+  display: block; /* Allows tbody to scroll independently */
+  overflow-y: auto;
+}
