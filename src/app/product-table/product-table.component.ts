@@ -1,5 +1,4 @@
-import {ChangeDetectionStrategy, Component, Inject, inject, model, OnInit, ViewEncapsulation} from '@angular/core';
-import {MatTableModule} from '@angular/material/table';
+import {ChangeDetectionStrategy, Component, Inject, inject, model, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import { Manufacturer, Product } from '../inventory-objects';
 import { MatButtonModule } from '@angular/material/button';
 import { DataService } from '../data.service';
@@ -21,6 +20,8 @@ import { map, Observable } from 'rxjs';
 import { Department } from '../inventory-objects';
 import { TextFilterComponent } from "../text-filter/text-filter.component";
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 /**
  * @title Basic use of `<table mat-table>`
  */
@@ -29,13 +30,15 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
   selector: 'product-table',
   styleUrl: 'product-table.component.scss',
   templateUrl: 'product-table.component.html',
-  imports: [MatTableModule, MatButtonModule, SelectorComponent, MatFormFieldModule, TextFilterComponent, MatProgressSpinner],
+  imports: [MatTableModule, MatButtonModule, MatSortModule, SelectorComponent, MatFormFieldModule, TextFilterComponent, MatProgressSpinner],
   encapsulation: ViewEncapsulation.None
 })
 export class ProductTableComponent implements OnInit {
+  @ViewChild(MatSort, { static: true }) sort: MatSort = new MatSort();
+  
   displayedColumns: string[] = ['departmentCode', 'manufacturerCode', 'modelNumber', 'description', 'price', 'actions'];
   service = inject(DataService);
-  dataSource = new TableDs<Product>(() => this.service.getProducts(this.departmentId, this.manufacturerId, this.description)); // ELEMENT_DATA;
+  dataSource = new MatTableDataSource<Product>(); // ELEMENT_DATA;
   
   departments: ListItem[] = [];
   manufacturers: ListItem[] = [];
@@ -43,6 +46,7 @@ export class ProductTableComponent implements OnInit {
   departmentId : number = 0;
   manufacturerId : number = 0;
   description : string = "";
+  ready : boolean = false;
 
   readonly dialog = inject(MatDialog);
 
@@ -52,8 +56,15 @@ export class ProductTableComponent implements OnInit {
     this.refresh();
   }
 
+  ngAfterViewInit(): void {
+      this.dataSource.sort = this.sort;
+      this.ready = true;
+  }
+
   refresh(): void {
-    this.dataSource.refresh();
+    this.service.getProducts(this.departmentId, this.manufacturerId, this.description).subscribe(data => {
+      this.dataSource.data = data;
+    });
   }
   
   addProduct() : void {
@@ -66,7 +77,7 @@ export class ProductTableComponent implements OnInit {
       } }).afterClosed().subscribe(data => {
       if (data != "cancel") {
         console.log("Adding " + data);
-        this.service.addProduct(data.product).subscribe(data => this.dataSource.refresh());
+        this.service.addProduct(data.product).subscribe(data => this.refresh());
       } else {
         console.log("Add canceled");
       }
@@ -83,7 +94,7 @@ export class ProductTableComponent implements OnInit {
       } }).afterClosed().subscribe(data => {
       if (data != "cancel") {
         console.log("Updating " + data);
-        this.service.updateProduct(data.product).subscribe(data => this.dataSource.refresh());
+        this.service.updateProduct(data.product).subscribe(data => this.refresh());
       } else {
         console.log("Update canceled");
       }
@@ -96,7 +107,7 @@ export class ProductTableComponent implements OnInit {
     }).afterClosed().subscribe((yes: Boolean) => {
       if (yes) {
         console.log("Deleting " + id);
-        this.service.deleteProduct(id).subscribe(data => this.dataSource.refresh());
+        this.service.deleteProduct(id).subscribe(data => this.refresh());
       } else {
         console.log("Delete canceled");
       }
