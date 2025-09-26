@@ -44,6 +44,34 @@ export class DataService {
       return this.http.post(DataService.urlRoot + '/Department/Delete', params);
   }
 
+  getManufacturers(): Observable<Manufacturer[]> {
+    return this.http.get<Manufacturer[]>(`${DataService.urlRoot}/Manufacturer/Get`);
+  }
+
+  addManufacturer(name: string, code: string) : Observable<Object>  {
+    const params = new HttpParams()
+      .set('name', name)
+      .set('code', code);
+
+    return this.http.post(DataService.urlRoot + '/Manufacturer/Create',  params);
+  }
+
+  updateManufacturer(id: number, name: string, code: string) : Observable<Object>  {
+    const params = new HttpParams()
+      .set('id', id)
+      .set('name', name)
+      .set('code', code);
+
+    return this.http.post(DataService.urlRoot + '/Manufacturer/Update',  params);
+  }
+
+  deleteManufacturer(id: number) : Observable<Object> {
+    const params = new HttpParams()
+      .set('id', id);
+
+      return this.http.post(DataService.urlRoot + '/Manufacturer/Delete', params);
+  }
+
   getProducts(deptId: number, manuId: number, name: string): Observable<Product[]> {
     const params = new HttpParams()
       .set('name', name)
@@ -82,9 +110,4 @@ export class DataService {
 
       return this.http.post(DataService.urlRoot + '/Product/Delete', params);
   }
-
-  getManufacturers(): Observable<Manufacturer[]> {
-    return this.http.get<Manufacturer[]>(`${DataService.urlRoot}/Manufacturer/Get`);
-  }
-
 }
