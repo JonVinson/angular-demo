@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>New Department</h2>
+<h2 mat-dialog-title>{{data.title}}</h2>
 <mat-dialog-content>
   <mat-form-field style="margin-right: 10px;">
     <mat-label>Name</mat-label>
@@ -12,5 +12,5 @@
 
 <mat-dialog-actions>
   <button mat-button mat-dialog-close="cancel">Cancel</button>
-  <button mat-button (click)="closeDialog()" cdkFocusInitial>Add</button>
+  <button mat-button (click)="closeDialog()" cdkFocusInitial>Save</button>
 </mat-dialog-actions>
