@@ -1,5 +1,5 @@
 <div class="main-container">
-  <div style="height: 200px;">
+  <div style="height: 160px;">
     <h1 mat-title>Products</h1>
     <div>
       <button mat-flat-button (click)="addProduct()">Add</button>
@@ -68,12 +68,6 @@
   </div>
   }
   @placeholder {
-    <div class="centered">
-      <h1>Waking up the database...</h1>
-    </div>
-    <div class="centered-50">
-        <mat-spinner></mat-spinner>
-    </div>
+    <app-wait-message message="Waking up the database..." />
   }
-
 </div>

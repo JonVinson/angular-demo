@@ -1,7 +1,44 @@
 /* You can add global styles to this file, and also import other style files */
 
-
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-@import "../node_modules/@angular/material/prebuilt-themes/azure-blue.css"
+.float-right {
+    float: right;
+}
+
+mat-form-field {
+    margin: 5px;
+}
+
+.main-container {
+  margin: 10px;
+  display: flex;
+  flex-direction: column; /* For vertical layout */
+  height: inherit; /* Or a specific height for the parent */
+}
+
+.table-container {
+  display: flex;
+  flex-direction: column; /* For vertical layout */
+  height: calc(100vh - 235px);
+}
+
+/* Optional: To ensure the header remains visible while scrolling the body */
+.table-container table {
+  width: 100%; /* Ensure the table takes full width of the container */
+  border-collapse: collapse; /* For better table rendering */
+}
+
+.table-container thead, .table-container tbody tr {
+  display: table;
+  height: 50px;
+  width: 100%;
+  table-layout: fixed; /* Ensures columns align when header and body are separate */
+}
+
+.table-container tbody {
+  display: block; /* Allows tbody to scroll independently */
+  overflow-y: auto;
+}
+

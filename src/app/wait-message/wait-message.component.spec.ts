@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TableTwoComponent } from './table-two.component';
+import { WaitMessageComponent } from './wait-message.component';
 
-describe('TableTwoComponent', () => {
-  let component: TableTwoComponent;
-  let fixture: ComponentFixture<TableTwoComponent>;
+describe('WaitMessageComponent', () => {
+  let component: WaitMessageComponent;
+  let fixture: ComponentFixture<WaitMessageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TableTwoComponent]
+      imports: [WaitMessageComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TableTwoComponent);
+    fixture = TestBed.createComponent(WaitMessageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

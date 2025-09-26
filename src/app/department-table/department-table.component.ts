@@ -1,9 +1,4 @@
-import { CollectionViewer } from '@angular/cdk/collections';
-import { DataSource } from '@angular/cdk/table';
-import { HttpClient } from '@angular/common/http';
 import {ChangeDetectionStrategy, Component, Inject, inject, OnInit} from '@angular/core';
-import {MatTableModule} from '@angular/material/table';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { Department } from '../inventory-objects';
 import { MatButtonModule } from '@angular/material/button';
 import { DataService } from '../data.service';
@@ -20,17 +15,16 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { TableDs } from '../table-ds';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
-/**
- * @title Basic use of `<table mat-table>`
- */
+import { WaitMessageComponent } from "../wait-message/wait-message.component";
+import { MatTableModule } from '@angular/material/table';
+
 @Component({
-  selector: 'table-two',
-  styleUrl: 'table-two.component.scss',
-  templateUrl: 'table-two.component.html',
-  imports: [MatTableModule, MatButtonModule, MatProgressSpinner],
+  selector: 'app-department-table',
+  imports: [MatTableModule, MatButtonModule, WaitMessageComponent],
+  templateUrl: './department-table.component.html',
+  styleUrl: './department-table.component.scss'
 })
-export class TableTwoComponent implements OnInit {
+export class DepartmentTableComponent {
   displayedColumns: string[] = ['id', 'name', 'code', 'actions'];
   service = inject(DataService);
   dataSource = new TableDs<Department>(this.service.getDepartments); // ELEMENT_DATA;
@@ -42,7 +36,7 @@ export class TableTwoComponent implements OnInit {
   }
 
   addDepartment() : void {
-    let dialogRef = this.dialog.open(AddDepartmentDialog, { data: { name: '', code: ''} }).afterClosed().subscribe(data => {
+    let dialogRef = this.dialog.open(AddDepartmentDialog, { data: { name: '', code: '', title: 'Add Department'} }).afterClosed().subscribe(data => {
       if (data != "cancel") {
         console.log("Adding " + data);
         this.service.addDepartment(data.name, data.code).subscribe(data => this.dataSource.refresh());
@@ -53,7 +47,7 @@ export class TableTwoComponent implements OnInit {
   }
   
   editDepartment(id: number, name: string, code: string) : void {
-    let dialogRef = this.dialog.open(EditDepartmentDialog, { data: { name: name, code: code} }).afterClosed().subscribe(data => {
+    let dialogRef = this.dialog.open(AddDepartmentDialog, { data: { name: name, code: code, title: 'Edit Department' } }).afterClosed().subscribe(data => {
       if (data != "cancel") {
         console.log("Adding " + data);
         this.service.updateDepartment(id, data.name, data.code).subscribe(data => this.dataSource.refresh());
@@ -96,22 +90,10 @@ export class DeleteDepartmentDialog {
 })
 export class AddDepartmentDialog {
   readonly dialogRef = inject(MatDialogRef<AddDepartmentDialog>);
-  constructor(@Inject(MAT_DIALOG_DATA) public data: {name: string, code: string}) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: {name: string, code: string, title: string}) { }
   closeDialog() : void {
     this.dialogRef.close(this.data);
   }
 }
 
-@Component({
-  selector: 'edit-department-dialog',
-  templateUrl: 'edit-department-dialog.html',
-  imports: [MatButtonModule, MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent, FormsModule, MatFormFieldModule, MatInputModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-})
-export class EditDepartmentDialog {
-  readonly dialogRef = inject(MatDialogRef<AddDepartmentDialog>);
-  constructor(@Inject(MAT_DIALOG_DATA) public data: {name: string, code: string}) { }
-  closeDialog() : void {
-    this.dialogRef.close(this.data);
-  }
-}
+
