@@ -20,3 +20,10 @@ export class Manufacturer {
   code: string = '';
   products?: any;
 }
+
+export class Supplier {
+  id?: number;
+  name: string = '';
+  code: string = '';
+  products?: any;
+}

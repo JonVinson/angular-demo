@@ -3,10 +3,11 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { ProductTableComponent } from "../product-table/product-table.component";
 import { DepartmentTableComponent } from "../department-table/department-table.component";
 import { ManufacturerTableComponent } from "../manufacturer-table/manufacturer-table.component";
+import { SupplierTableComponent } from "../supplier-table/supplier-table.component";
 
 @Component({
   selector: 'app-table-tabs',
-  imports: [MatTabsModule, ProductTableComponent, DepartmentTableComponent, ManufacturerTableComponent],
+  imports: [MatTabsModule, ProductTableComponent, DepartmentTableComponent, ManufacturerTableComponent, SupplierTableComponent],
   templateUrl: './table-tabs.component.html',
   styleUrl: './table-tabs.component.scss'
 })
