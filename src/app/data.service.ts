@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Department, Manufacturer, Product, Supplier } from './inventory-objects';
+import { Customer, Department, Manufacturer, Product, Supplier } from './inventory-objects';
 
 import { environment } from './../environments/environment';
 
@@ -114,6 +114,50 @@ export class DataService {
       .set('id', id);
 
       return this.http.post(DataService.urlRoot + '/Supplier/Delete', params);
+  }
+
+  getCustomers(): Observable<Customer[]> {
+    return this.http.get<Customer[]>(`${DataService.urlRoot}/Customer/Get`);
+  }
+
+  addCustomer(data: Customer) : Observable<Object>  {
+    const params = new HttpParams()
+      .set('name', data.name)
+      .set('code', data.code)
+      .set('street', data.street)
+      .set('city', data.city)
+      .set('state', data.state)
+      .set('country', data.country)
+      .set('postalCode', data.postalCode)
+      .set('contactEmail', data.contactEmail)
+      .set('contactName', data.contactName)
+      .set('phoneNumber', data.phoneNumber);
+
+    return this.http.post(DataService.urlRoot + '/Customer/Create',  params);
+  }
+
+  updateCustomer(data: Customer) : Observable<Object>  {
+    const params = new HttpParams()
+      .set('id', data.id!)
+      .set('name', data.name)
+      .set('code', data.code)
+      .set('street', data.street)
+      .set('city', data.city)
+      .set('state', data.state)
+      .set('country', data.country)
+      .set('postalCode', data.postalCode)
+      .set('contactEmail', data.contactEmail)
+      .set('contactName', data.contactName)
+      .set('phoneNumber', data.phoneNumber);
+
+    return this.http.post(DataService.urlRoot + '/Customer/Update',  params);
+  }
+
+  deleteCustomer(id: number) : Observable<Object> {
+    const params = new HttpParams()
+      .set('id', id);
+
+      return this.http.post(DataService.urlRoot + '/Customer/Delete', params);
   }
 
   getProducts(deptId: number, manuId: number, name: string): Observable<Product[]> {
