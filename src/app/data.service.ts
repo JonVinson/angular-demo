@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Customer, Department, Manufacturer, Product, Supplier } from './inventory-objects';
+import { Customer, Department, Manufacturer, Product, ReportItem, Supplier } from './inventory-objects';
 
 import { environment } from './../environments/environment';
 
@@ -197,5 +197,12 @@ export class DataService {
       .set('id', id);
 
       return this.http.post(DataService.urlRoot + '/Product/Delete', params);
+  }
+
+  getReport(startDate?: Date, endDate?: Date) : Observable<ReportItem[]> {
+    const params = new HttpParams();
+    if (startDate) params.set('startDate', startDate!.toISOString())
+    if (endDate) params.set('endDate', endDate!.toISOString())
+    return this.http.get<ReportItem[]>(`${DataService.urlRoot}/Income/Get`);    
   }
 }

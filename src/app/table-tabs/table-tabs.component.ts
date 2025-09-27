@@ -5,10 +5,11 @@ import { DepartmentTableComponent } from "../department-table/department-table.c
 import { ManufacturerTableComponent } from "../manufacturer-table/manufacturer-table.component";
 import { SupplierTableComponent } from "../supplier-table/supplier-table.component";
 import { CustomerTableComponent } from "../customer-table/customer-table.component";
+import { IncomeReportComponent } from "../income-report/income-report.component";
 
 @Component({
   selector: 'app-table-tabs',
-  imports: [MatTabsModule, ProductTableComponent, DepartmentTableComponent, ManufacturerTableComponent, SupplierTableComponent, CustomerTableComponent],
+  imports: [MatTabsModule, ProductTableComponent, DepartmentTableComponent, ManufacturerTableComponent, SupplierTableComponent, CustomerTableComponent, IncomeReportComponent],
   templateUrl: './table-tabs.component.html',
   styleUrl: './table-tabs.component.scss'
 })
