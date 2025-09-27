@@ -25,7 +25,7 @@ import { MatTableModule } from '@angular/material/table';
   styleUrl: './supplier-table.component.scss'
 })
 export class SupplierTableComponent {
-  displayedColumns: string[] = ['id', 'name', 'code', 'actions'];
+  displayedColumns: string[] = ['name', 'code', 'street', 'city', 'state', 'postalCode', 'contactName', 'contactEmail', 'phoneNumber', 'actions'];
   service = inject(DataService);
   dataSource = new TableDs<Supplier>(this.service.getSuppliers); // ELEMENT_DATA;
 
