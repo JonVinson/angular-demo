@@ -98,7 +98,7 @@ export class DeleteSupplierDialog {
 })
 export class AddSupplierDialog {
   readonly dialogRef = inject(MatDialogRef<AddSupplierDialog>);
-  constructor(@Inject(MAT_DIALOG_DATA) public data: {name: string, code: string, title: string}) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: {title: string, supplier: Supplier}) { }
   closeDialog() : void {
     this.dialogRef.close(this.data);
   }
