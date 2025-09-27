@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Department, Manufacturer, Product } from './inventory-objects';
+import { Department, Manufacturer, Product, Supplier } from './inventory-objects';
 
 import { environment } from './../environments/environment';
 
@@ -72,6 +72,50 @@ export class DataService {
       return this.http.post(DataService.urlRoot + '/Manufacturer/Delete', params);
   }
 
+  getSuppliers(): Observable<Supplier[]> {
+    return this.http.get<Supplier[]>(`${DataService.urlRoot}/Supplier/Get`);
+  }
+
+  addSupplier(data: Supplier) : Observable<Object>  {
+    const params = new HttpParams()
+      .set('name', data.name)
+      .set('code', data.code)
+      .set('street', data.street)
+      .set('city', data.city)
+      .set('state', data.state)
+      .set('country', data.country)
+      .set('postalCode', data.postalCode)
+      .set('contactEmail', data.contactEmail)
+      .set('contactName', data.contactName)
+      .set('phoneNumber', data.phoneNumber);
+
+    return this.http.post(DataService.urlRoot + '/Supplier/Create',  params);
+  }
+
+  updateSupplier(data: Supplier) : Observable<Object>  {
+    const params = new HttpParams()
+      .set('id', data.id!)
+      .set('name', data.name)
+      .set('code', data.code)
+      .set('street', data.street)
+      .set('city', data.city)
+      .set('state', data.state)
+      .set('country', data.country)
+      .set('postalCode', data.postalCode)
+      .set('contactEmail', data.contactEmail)
+      .set('contactName', data.contactName)
+      .set('phoneNumber', data.phoneNumber);
+
+    return this.http.post(DataService.urlRoot + '/Supplier/Update',  params);
+  }
+
+  deleteSupplier(id: number) : Observable<Object> {
+    const params = new HttpParams()
+      .set('id', id);
+
+      return this.http.post(DataService.urlRoot + '/Supplier/Delete', params);
+  }
+
   getProducts(deptId: number, manuId: number, name: string): Observable<Product[]> {
     const params = new HttpParams()
       .set('name', name)
@@ -84,7 +128,7 @@ export class DataService {
   addProduct(product: Product) : Observable<Object>  {
     const params = new HttpParams()
       .set('departmentId', product.departmentId)
-      .set('manufacturerId', product.manufacturerId)
+      .set('supplierId', product.manufacturerId)
       .set('modelNumber', product.modelNumber)
       .set('description', product.description)
       .set('price', product.price);
