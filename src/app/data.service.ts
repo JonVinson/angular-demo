@@ -76,19 +76,35 @@ export class DataService {
     return this.http.get<Supplier[]>(`${DataService.urlRoot}/Supplier/Get`);
   }
 
-  addSupplier(name: string, code: string) : Observable<Object>  {
+  addSupplier(data: Supplier) : Observable<Object>  {
     const params = new HttpParams()
-      .set('name', name)
-      .set('code', code);
+      .set('name', data.name)
+      .set('code', data.code)
+      .set('street', data.street)
+      .set('city', data.city)
+      .set('state', data.state)
+      .set('country', data.country)
+      .set('postalCode', data.postalCode)
+      .set('contactEmail', data.contactEmail)
+      .set('contactName', data.contactName)
+      .set('phoneNumber', data.phoneNumber);
 
     return this.http.post(DataService.urlRoot + '/Supplier/Create',  params);
   }
 
-  updateSupplier(id: number, name: string, code: string) : Observable<Object>  {
+  updateSupplier(data: Supplier) : Observable<Object>  {
     const params = new HttpParams()
-      .set('id', id)
-      .set('name', name)
-      .set('code', code);
+      .set('id', data.id!)
+      .set('name', data.name)
+      .set('code', data.code)
+      .set('street', data.street)
+      .set('city', data.city)
+      .set('state', data.state)
+      .set('country', data.country)
+      .set('postalCode', data.postalCode)
+      .set('contactEmail', data.contactEmail)
+      .set('contactName', data.contactName)
+      .set('phoneNumber', data.phoneNumber);
 
     return this.http.post(DataService.urlRoot + '/Supplier/Update',  params);
   }

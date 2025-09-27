@@ -21,9 +21,20 @@ export class Manufacturer {
   products?: any;
 }
 
-export class Supplier {
+export class Company {
   id?: number;
   name: string = '';
   code: string = '';
+  street: string = '';
+  city: string = '';
+  state: string = '';
+  country: string = '';
+  postalCode: string = '';
+  contactEmail: string = '';
+  contactName: string = '';
+  phoneNumber: string = '';
   products?: any;
 }
+
+export type Supplier = Company;
+export type Customer = Company;

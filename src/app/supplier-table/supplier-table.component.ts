@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, Inject, inject, OnInit} from '@angular/core';
-import { Supplier } from '../inventory-objects';
+import { Company, Supplier } from '../inventory-objects';
 import { MatButtonModule } from '@angular/material/button';
 import { DataService } from '../data.service';
 import {
@@ -36,23 +36,31 @@ export class SupplierTableComponent {
   }
 
   addSupplier() : void {
-    let dialogRef = this.dialog.open(AddSupplierDialog, { data: { name: '', code: '', title: 'Add Supplier'} }).afterClosed().subscribe(data => {
+    let dialogRef = this.dialog.open(AddSupplierDialog, { 
+      data: {
+        title: 'New Supplier',
+        supplier: new Company,
+      } }).afterClosed().subscribe(data => {
       if (data != "cancel") {
         console.log("Adding " + data);
-        this.service.addSupplier(data.name, data.code).subscribe(data => this.dataSource.refresh());
+        this.service.addSupplier(data.supplier).subscribe(data => this.dataSource.refresh());
       } else {
         console.log("Add canceled");
       }
     });
   }
   
-  editSupplier(id: number, name: string, code: string) : void {
-    let dialogRef = this.dialog.open(AddSupplierDialog, { data: { name: name, code: code, title: 'Edit Supplier' } }).afterClosed().subscribe(data => {
+  editSupplier(supplier: Supplier) : void {
+    let dialogRef = this.dialog.open(AddSupplierDialog, { 
+      data: { 
+        title: 'Edit Supplier',
+        supplier: structuredClone(supplier),
+      } }).afterClosed().subscribe(data => {
       if (data != "cancel") {
-        console.log("Adding " + data);
-        this.service.updateSupplier(id, data.name, data.code).subscribe(data => this.dataSource.refresh());
+        console.log("Updating " + data);
+        this.service.updateSupplier(data.supplier).subscribe(data => this.dataSource.refresh());
       } else {
-        console.log("Add canceled");
+        console.log("Update canceled");
       }
     });
   }
