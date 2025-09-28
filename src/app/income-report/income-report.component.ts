@@ -11,7 +11,6 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { TimeInterval } from 'rxjs/internal/operators/timeInterval';
-import { CurrencyPipe } from '@angular/common';
 import { AccountingPipe } from "../accounting.pipe";
 /**
  * @title Basic use of `<table mat-table>`
@@ -23,7 +22,7 @@ import { AccountingPipe } from "../accounting.pipe";
   templateUrl: 'income-report.component.html',
   providers: [provideNativeDateAdapter()],
   imports: [MatTableModule, MatButtonModule, MatFormFieldModule, WaitMessageComponent, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatInputModule,
-    CurrencyPipe, AccountingPipe],
+    AccountingPipe],
   encapsulation: ViewEncapsulation.None
 })
 export class IncomeReportComponent implements OnInit {
