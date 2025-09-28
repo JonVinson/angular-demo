@@ -200,9 +200,9 @@ export class DataService {
   }
 
   getReport(startDate?: Date, endDate?: Date) : Observable<ReportItem[]> {
-    const params = new HttpParams();
-    if (startDate) params.set('startDate', startDate!.toISOString())
-    if (endDate) params.set('endDate', endDate!.toISOString())
-    return this.http.get<ReportItem[]>(`${DataService.urlRoot}/Income/Get`);    
+    const params = new HttpParams()
+      .set('startDate', startDate!.toDateString())
+      .set('endDate', endDate!.toDateString());
+    return this.http.get<ReportItem[]>(`${DataService.urlRoot}/Income/Get`, { params: params });    
   }
 }
