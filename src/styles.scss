@@ -38,7 +38,6 @@ mat-form-field {
   height: 50px;
   width: 100%;
   table-layout: fixed; /* Ensures columns align when header and body are separate */  
-  border-bottom-width: 0;
 }
 
 .table-container tr:nth-of-type(even) {
