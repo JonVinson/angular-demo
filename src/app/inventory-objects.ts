@@ -38,3 +38,10 @@ export class Company {
 
 export type Supplier = Company;
 export type Customer = Company;
+
+export class ReportItem {
+  department: string = '';
+  revenue: number = 0;
+  cost: number = 0;
+  netIncome: number = 0;
+}
