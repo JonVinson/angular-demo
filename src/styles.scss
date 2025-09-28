@@ -1,6 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 
+@use "@angular/material" as mat;
+
 html, body { height: 100%; }
+
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .float-right {
@@ -34,7 +37,15 @@ mat-form-field {
   display: table;
   height: 50px;
   width: 100%;
-  table-layout: fixed; /* Ensures columns align when header and body are separate */
+  table-layout: fixed; /* Ensures columns align when header and body are separate */  
+}
+
+.table-container tr:nth-of-type(even) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.table-container thead:first-of-type {
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .table-container tbody {
@@ -42,3 +53,8 @@ mat-form-field {
   overflow-y: auto;
 }
 
+:root {
+  @include mat.table-overrides((
+    row-item-outline-width: 0
+  ));
+}
