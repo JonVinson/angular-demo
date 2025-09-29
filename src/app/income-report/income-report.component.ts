@@ -25,7 +25,7 @@ import { AccountingPipe } from "../accounting.pipe";
     AccountingPipe]
 })
 export class IncomeReportComponent implements OnInit {
-  displayedColumns: string[] = ['department', 'revenue', 'cost', 'net'];
+  displayedColumns: string[] = ['department', 'revenue', 'cost', 'net', 'nothing'];
   service = inject(DataService);
   dataSource = new TableDs<ReportItem>(() => this.service.getReport(this.startDate, this.endDate)); // ELEMENT_DATA;
   
