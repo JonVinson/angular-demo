@@ -1,11 +1,23 @@
+.mat-column-department {
+  width: 8%;
+}
+
 .mat-column-revenue {
+  width: 10%;
   text-align: right;
 }
 
 .mat-column-cost {
+  width: 10%;
   text-align: right;
 }
 
 .mat-column-net {
+  width: 10%;
   text-align: right;
+}
+
+
+.mat-column-nothing {
+  width: 62%;
 }

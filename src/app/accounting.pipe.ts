@@ -7,9 +7,9 @@ import { DecimalPipe, formatNumber } from '@angular/common';
 export class AccountingPipe implements PipeTransform {
   transform(value: number): string {
     if (value < 0) {
-      return `(${formatNumber(-value, 'en-US', '1.2')})`;
+      return `(${formatNumber(-value, 'en-US', '1.2-2')})`;
     } else if (value > 0) {
-      return formatNumber(value, 'en-US', '1.2');
+      return formatNumber(value, 'en-US', '1.2-2');
     } else {
       return '- ';
     }
