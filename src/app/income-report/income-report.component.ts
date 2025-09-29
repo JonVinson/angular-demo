@@ -22,8 +22,7 @@ import { AccountingPipe } from "../accounting.pipe";
   templateUrl: 'income-report.component.html',
   providers: [provideNativeDateAdapter()],
   imports: [MatTableModule, MatButtonModule, MatFormFieldModule, WaitMessageComponent, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatInputModule,
-    AccountingPipe],
-  encapsulation: ViewEncapsulation.None
+    AccountingPipe]
 })
 export class IncomeReportComponent implements OnInit {
   displayedColumns: string[] = ['department', 'revenue', 'cost', 'net'];
