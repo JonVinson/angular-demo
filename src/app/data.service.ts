@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, timeout } from 'rxjs';
 import { Customer, Department, Manufacturer, Product, ReportItem, Supplier } from './inventory-objects';
 
 import { environment } from './../environments/environment';
@@ -13,11 +13,13 @@ export class DataService {
   private static urlRoot: string = environment.DATA_SERVICE_ROOT_URL;
 
   private http = inject(HttpClient);
+  options  = { timeout: 60000 };
 
   constructor() { }
 
   getDepartments(): Observable<Department[]> {
-    return this.http.get<Department[]>(`${DataService.urlRoot}/Department/Get`);
+    return this.http.get<Department[]>(`${DataService.urlRoot}/Department/Get`)
+      .pipe(timeout(60000));
   }
 
   addDepartment(name: string, code: string) : Observable<Object>  {
@@ -45,7 +47,8 @@ export class DataService {
   }
 
   getManufacturers(): Observable<Manufacturer[]> {
-    return this.http.get<Manufacturer[]>(`${DataService.urlRoot}/Manufacturer/Get`);
+    return this.http.get<Manufacturer[]>(`${DataService.urlRoot}/Manufacturer/Get`)
+      .pipe(timeout(60000));
   }
 
   addManufacturer(name: string, code: string) : Observable<Object>  {
@@ -73,7 +76,8 @@ export class DataService {
   }
 
   getSuppliers(): Observable<Supplier[]> {
-    return this.http.get<Supplier[]>(`${DataService.urlRoot}/Supplier/Get`);
+    return this.http.get<Supplier[]>(`${DataService.urlRoot}/Supplier/Get`)
+      .pipe(timeout(60000));
   }
 
   addSupplier(data: Supplier) : Observable<Object>  {
@@ -117,7 +121,8 @@ export class DataService {
   }
 
   getCustomers(): Observable<Customer[]> {
-    return this.http.get<Customer[]>(`${DataService.urlRoot}/Customer/Get`);
+    return this.http.get<Customer[]>(`${DataService.urlRoot}/Customer/Get`)
+      .pipe(timeout(60000));
   }
 
   addCustomer(data: Customer) : Observable<Object>  {
@@ -166,7 +171,8 @@ export class DataService {
       .set('deptId', deptId)
       .set('manuId', manuId);
 
-      return this.http.get<Product[]>(`${DataService.urlRoot}/Product/Get`, { params: params });
+      return this.http.get<Product[]>(`${DataService.urlRoot}/Product/Get`, { params: params })
+        .pipe(timeout(60000));
   }
 
   addProduct(product: Product) : Observable<Object>  {
@@ -203,6 +209,7 @@ export class DataService {
     const params = new HttpParams()
       .set('startDate', startDate!.toDateString())
       .set('endDate', endDate!.toDateString());
-    return this.http.get<ReportItem[]>(`${DataService.urlRoot}/Income/Get`, { params: params });    
+    return this.http.get<ReportItem[]>(`${DataService.urlRoot}/Income/Get`, { params: params })
+      .pipe(timeout(60000));    
   }
 }
