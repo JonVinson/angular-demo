@@ -1,20 +1,32 @@
 <mat-tab-group>
     <mat-tab label="Products">
-        <product-table />
+        <ng-template matTabContent>
+            <product-table />
+        </ng-template>
     </mat-tab>
-    <mat-tab label="Departments">
-        <app-department-table />
+    <mat-tab label="Products">
+        <ng-template matTabContent>
+            <app-department-table />
+        </ng-template>
     </mat-tab>
-    <mat-tab label="Income">
-        <income-report />
+    <mat-tab label="Products">
+        <ng-template matTabContent>
+            <income-report />
+        </ng-template>
     </mat-tab>
-    <mat-tab label="Manufacturers">
-        <app-manufacturer-table />
+    <mat-tab label="Products">
+        <ng-template matTabContent>
+            <app-manufacturer-table />
+        </ng-template>
     </mat-tab>
-    <mat-tab label="Suppliers">
-        <app-supplier-table />
+    <mat-tab label="Products">
+        <ng-template matTabContent>
+            <app-supplier-table />
+        </ng-template>
     </mat-tab>
-    <mat-tab label="Customers">
-        <app-customer-table />
+    <mat-tab label="Products">
+        <ng-template matTabContent>
+            <app-customer-table />
+        </ng-template>
     </mat-tab>
 </mat-tab-group>
