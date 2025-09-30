@@ -210,6 +210,6 @@ export class DataService {
       .set('startDate', startDate!.toDateString())
       .set('endDate', endDate!.toDateString());
     return this.http.get<ReportItem[]>(`${DataService.urlRoot}/Income/Get`, { params: params })
-      .pipe(timeout(60000));    
+      .pipe(timeout(120000));    
   }
 }
