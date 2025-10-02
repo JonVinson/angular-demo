@@ -14,6 +14,20 @@ export class Product {
   price: number = 0;
 }
 
+export class Transaction {
+  id?: number;
+  date: Date = new Date();
+  transactionType: number = 0;
+  productId: number = 0;
+  productName: string = '';
+  companyId: number = 0;
+  companyName: string = '';
+  quantity: number = 0;
+  price: number = 0;
+  totalAmount: number = 0;
+  note: string = '';
+}
+
 export class Manufacturer {
   id?: number;
   name: string = '';

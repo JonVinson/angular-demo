@@ -1,0 +1,22 @@
+<h2 mat-dialog-title>{{data.title}}</h2>
+<mat-dialog-content>
+  <app-selector label="Department" [source]="data.departments" [(selectedValue)]="data.transaction.departmentId"></app-selector>
+  <app-selector label="Manufacturer" [source]="data.manufacturers" [(selectedValue)]="data.transaction.manufacturerId"></app-selector>
+  <mat-form-field>
+    <mat-label>Model Number</mat-label>
+    <input matInput [(ngModel)]="data.transaction.modelNumber" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Description</mat-label>
+    <input matInput [(ngModel)]="data.transaction.description" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Price</mat-label>
+    <input matInput [(ngModel)]="data.transaction.price" />
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close="cancel">Cancel</button>
+  <button mat-button (click)="closeDialog()" cdkFocusInitial>Save</button>
+</mat-dialog-actions>

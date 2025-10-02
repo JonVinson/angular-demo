@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable, timeout } from 'rxjs';
-import { Customer, Department, Manufacturer, Product, ReportItem, Supplier } from './inventory-objects';
+import { Customer, Department, Manufacturer, Product, ReportItem, Supplier, Transaction } from './inventory-objects';
 
 import { environment } from './../environments/environment';
 
@@ -203,6 +203,52 @@ export class DataService {
       .set('id', id);
 
       return this.http.post(DataService.urlRoot + '/Product/Delete', params);
+  }
+
+  getTransactions(startDate: Date, endDate: Date, transactionType: number, product: string, company: string ): Observable<Transaction[]> {
+    const params = new HttpParams()
+      .set('startDate', startDate.toDateString())
+      .set('endDate', endDate.toDateString())
+      .set('transType', transactionType)
+      .set('product', product)
+      .set('company', company);
+
+      return this.http.get<Transaction[]>(`${DataService.urlRoot}/Transaction/GetJson`, { params: params })
+        .pipe(timeout(60000));
+  }
+
+  addTransaction(transaction: Transaction) : Observable<Object>  {
+    const params = new HttpParams()
+      .set('date', transaction.date.toDateString())
+      .set('transactionType', transaction.transactionType)
+      .set('productId', transaction.productId)
+      .set('companyId', transaction.companyId)
+      .set('quantity', transaction.quantity)
+      .set('price', transaction.price)
+      .set('note', transaction.note);
+
+    return this.http.post(DataService.urlRoot + '/Transaction/Create',  params);
+  }
+
+  updateTransaction(transaction: Transaction) : Observable<Object>  {
+    const params = new HttpParams()
+      .set('id', transaction.id!)
+      .set('date', transaction.date.toDateString())
+      .set('transactionType', transaction.transactionType)
+      .set('productId', transaction.productId)
+      .set('companyId', transaction.companyId)
+      .set('quantity', transaction.quantity)
+      .set('price', transaction.price)
+      .set('note', transaction.note);
+
+    return this.http.post(DataService.urlRoot + '/Transaction/Update',  params);
+  }
+
+  deleteTransaction(id: number) : Observable<Object> {
+    const params = new HttpParams()
+      .set('id', id);
+
+      return this.http.post(DataService.urlRoot + '/Transaction/Delete', params);
   }
 
   getReport(startDate?: Date, endDate?: Date) : Observable<ReportItem[]> {
