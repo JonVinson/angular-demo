@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, Inject, inject, model, OnInit, ViewEncapsulation} from '@angular/core';
 import {MatTableModule} from '@angular/material/table';
-import { Manufacturer, Transaction } from '../inventory-objects';
+import { Transaction } from '../inventory-objects';
 import { MatButtonModule } from '@angular/material/button';
 import { DataService } from '../data.service';
 import {
@@ -12,15 +12,20 @@ import {
   MatDialogRef,
   MatDialogTitle,
 } from '@angular/material/dialog';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
+import { MatInput, MatInputModule } from '@angular/material/input';
 import { TableDs } from '../table-ds';
 import { ListItem, SelectorComponent } from "../selector/selector.component";
 import { map, Observable } from 'rxjs';
 import { Department } from '../inventory-objects';
 import { TextFilterComponent } from "../text-filter/text-filter.component";
 import { WaitMessageComponent } from "../wait-message/wait-message.component";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { provideNativeDateAdapter } from '@angular/material/core';
+import { AccountingPipe } from '../accounting.pipe';
+import { DatePipe } from '@angular/common';
+
 /**
  * @title Basic use of `<table mat-table>`
  */
@@ -29,26 +34,33 @@ import { WaitMessageComponent } from "../wait-message/wait-message.component";
   selector: 'transaction-table',
   styleUrl: 'transaction-table.component.scss',
   templateUrl: 'transaction-table.component.html',
-  imports: [MatTableModule, MatButtonModule, SelectorComponent, MatFormFieldModule, TextFilterComponent, WaitMessageComponent],
+  providers: [provideNativeDateAdapter()],
+  imports: [MatTableModule, MatButtonModule, SelectorComponent, MatFormFieldModule, TextFilterComponent,
+    WaitMessageComponent, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatInputModule, AccountingPipe, DatePipe],
   encapsulation: ViewEncapsulation.None
 })
 export class TransactionTableComponent implements OnInit {
-  displayedColumns: string[] = ['departmentCode', 'manufacturerCode', 'modelNumber', 'description', 'price', 'actions'];
+  displayedColumns: string[] = ['date','type','product','company','quantity','price','total'];
   service = inject(DataService);
-  dataSource = new TableDs<Transaction>(() => this.service.getTransactions(this.departmentId, this.manufacturerId, this.description)); // ELEMENT_DATA;
+  dataSource = new TableDs<Transaction>(() => this.service.getTransactions(this.startDate, this.endDate, this.transactionType, this.product, this.company)); // ELEMENT_DATA;
   
-  departments: ListItem[] = [];
-  manufacturers: ListItem[] = [];
-
-  departmentId : number = 0;
-  manufacturerId : number = 0;
-  description : string = "";
+  startDate : Date = new Date(2010, 0, 1);
+  endDate : Date = new Date();
+  transactionType : number = 0;
+  product : string = "";
+  company : string = "";
+  
+  transTypes : ListItem[] = [
+      { itemValue : 0, itemText: 'All' },
+      { itemValue : 1, itemText: 'Purchase' },
+      { itemValue : 2, itemText: 'Sale' },
+      { itemValue : 3, itemText: 'Return Purchase' },
+      { itemValue : 4, itemText: 'Return Sale' },
+    ];
 
   readonly dialog = inject(MatDialog);
 
   ngOnInit(): void {
-    this.getDepartments();
-    this.getManufacturers();
     this.refresh();
   }
 
@@ -61,8 +73,6 @@ export class TransactionTableComponent implements OnInit {
       data: {
         title: 'New Transaction',
         transaction: new Transaction,
-        departments: this.departments, 
-        manufacturers: this.manufacturers
       } }).afterClosed().subscribe(data => {
       if (data != "cancel") {
         console.log("Adding " + data);
@@ -78,8 +88,6 @@ export class TransactionTableComponent implements OnInit {
       data: { 
         title: 'Edit Transaction',
         transaction: structuredClone(transaction),
-        departments: this.departments, 
-        manufacturers: this.manufacturers
       } }).afterClosed().subscribe(data => {
       if (data != "cancel") {
         console.log("Updating " + data);
@@ -101,14 +109,6 @@ export class TransactionTableComponent implements OnInit {
         console.log("Delete canceled");
       }
     });
-  }
-
-  public getDepartments() : void {
-    this.service.getDepartments().subscribe((list : Department[]) => this.departments = list.map((item) => new ListItem(item.id, item.name)));
-  }
-
-  public getManufacturers() : void {
-    this.service.getManufacturers().subscribe((list : Manufacturer[]) => this.manufacturers = list.map((item) => new ListItem(item.id, item.name)));
   }
 }
 
@@ -133,8 +133,6 @@ export class AddTransactionDialog {
   readonly dialogRef = inject(MatDialogRef<AddTransactionDialog>);
   constructor(@Inject(MAT_DIALOG_DATA) public data: {
     title: string;
-    manufacturers: ListItem[]|undefined;
-    departments: ListItem[]|undefined;
     transaction: Transaction;
     }) { }
   closeDialog() : void {

@@ -25,8 +25,15 @@ export class TableDs<T> implements DataSource<T> {
   refresh() : void {
     this.refreshMethod().subscribe(data => {
       this.ready = true;
-      this.subject.next(data);
+      this.senddata(data, 1000);
     });
+  }
+
+  private senddata(data : T[], j : number) {
+    this.subject.next(data.slice(0, j));
+    if (j < data.length) {
+      setTimeout(() => this.senddata(data, j + 1000), 100);
+    }
   }
 }
 
