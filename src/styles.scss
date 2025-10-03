@@ -2,9 +2,14 @@
 
 @use "@angular/material" as mat;
 
-html, body { height: 100%; }
-
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0; 
+  padding: 0;
+  height: 100vh;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 .float-right {
     float: right;
@@ -15,16 +20,23 @@ mat-form-field {
 }
 
 .main-container {
-  margin: 10px;
+  flex-grow: 1;
   display: flex;
   flex-direction: column; /* For vertical layout */
-  height: inherit; /* Or a specific height for the parent */
+  margin: 10px;
+}
+
+.main-header {
+  flex: 0 1 auto;
+}
+
+.main-body {
+  flex-grow: 1 0 auto;
 }
 
 .table-container {
   display: flex;
   flex-direction: column; /* For vertical layout */
-  height: calc(100vh - 235px);
 }
 
 /* Optional: To ensure the header remains visible while scrolling the body */
@@ -48,7 +60,12 @@ mat-form-field {
   background-color: rgba(0, 0, 0, 0.05);
 }
 
+.table-container thead {
+  flex: 0 1 auto;
+}
+
 .table-container tbody {
+  flex: 1 0 auto;
   display: block; /* Allows tbody to scroll independently */
   overflow-y: auto;
 }
