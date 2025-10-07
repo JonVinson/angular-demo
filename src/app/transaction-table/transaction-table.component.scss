@@ -1,0 +1,80 @@
+.scroll-viewport {
+  height: 600px;
+}
+
+.date-col {
+    width: 100px;
+    max-width: 50px;
+}
+
+.type-col {
+    width: 100px;
+    max-width: 50px;
+}
+
+.prod-col {
+    width: 250px;
+    text-align: left;
+
+}
+
+.comp-col {
+    width: 200px;
+    text-align: left;
+}
+
+.quant-col {
+    width: 100px;
+}
+
+.price-col {
+    width: 100px;
+}
+
+.total-col {
+    width: 100px;
+}
+
+.actions-col {
+    width: 100px;
+}
+
+
+.text-centered {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+tr {
+  height: 50px;
+}
+
+tr:nth-of-type(even) {
+    background-color: rgba(0,0,0,0.05);
+}
+
+table {
+  width: 100%;
+  height: 100%;
+  border-collapse: collapse; /* For better table rendering */
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+td {
+  display: table-cell;
+}
+
+tr {
+    display: table-row;
+}
+
+thead, tbody {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}

@@ -1,0 +1,61 @@
+<div class="main-container">
+  <div style="height: 160px;">
+    <h1 mat-title>Transactions</h1>
+    <div>
+      <button mat-flat-button (click)="addTransaction()">Add</button>
+      <div class="float-right">
+        <mat-form-field>
+          <mat-label>Start Date</mat-label>
+          <input matInput [matDatepicker]="startDatePicker" [(ngModel)]="startDate" (dateChange)="dataSource.refresh()">
+          <mat-datepicker-toggle matIconSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #startDatePicker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>End Date</mat-label>
+          <input matInput [matDatepicker]="endDatePicker" [(ngModel)]="endDate" (dateChange)="dataSource.refresh()">
+          <mat-datepicker-toggle matIconSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #endDatePicker></mat-datepicker>
+        </mat-form-field>
+        <app-selector label="Type" [source]="transTypes" [(selectedValue)]="transactionType" (selectedValueChange)="refresh()"></app-selector>
+        <app-text-filter label="Product" [(text)]="product" (textChange)="refresh()"></app-text-filter>
+        <app-text-filter label="Company" [(text)]="company" (textChange)="refresh()"></app-text-filter>
+      </div>
+    </div>
+  </div>
+
+  @defer (when dataSource.ready) {
+  <div>
+    <table class="table-container">
+      <thead>
+          <tr>
+              <th class="date-col text-centered">Date</th>
+              <th class="type-col text-centered">Type</th>
+              <th class="prod-col">Product</th>
+              <th class="comp-col">Company</th>
+              <th class="quant-col text-centered">Quantity</th>
+              <th class="price-col text-right">Price</th>
+              <th class="total-col text-right">Total</th>
+              <th class="actions-col"></th>
+          </tr>
+      </thead>
+      <cdk-virtual-scroll-viewport itemSize="50" class="scroll-viewport">
+          <tbody>
+              <tr *cdkVirtualFor="let item of dataSource">
+                  <td class="date-col text-centered">{{item.date | date:'shortDate'}}</td>
+                  <td class="type-col text-centered">{{transTypes[item.transactionType].itemText}}</td>
+                  <td class="prod-col">{{item.productName}}</td>
+                  <td class="comp-col">{{item.companyName}}</td>
+                  <td class="quant-col text-centered">{{item.quantity}}</td>
+                  <td class="price-col text-right">{{item.price | accounting}}</td>
+                  <td class="total-col text-right">{{item.price * item.quantity | accounting}}</td>
+                  <td class="actions-col"></td>
+              </tr>
+          </tbody>
+      </cdk-virtual-scroll-viewport>
+    </table>
+  </div>
+  }
+  @placeholder {
+    <app-wait-message message="Waking up the database..." />
+  }
+</div>
