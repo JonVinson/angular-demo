@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, Inject, inject, model, OnInit, ViewEncapsulation} from '@angular/core';
 import {MatTableModule} from '@angular/material/table';
-import { Transaction } from '../inventory-objects';
+import { Company, Product, Transaction } from '../inventory-objects';
 import { MatButtonModule } from '@angular/material/button';
 import { DataService } from '../data.service';
 import {
@@ -37,8 +37,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling'
   templateUrl: 'transaction-table.component.html',
   providers: [provideNativeDateAdapter()],
   imports: [MatTableModule, MatButtonModule, SelectorComponent, MatFormFieldModule, TextFilterComponent,
-    WaitMessageComponent, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatInputModule, AccountingPipe, DatePipe, ScrollingModule],
-  encapsulation: ViewEncapsulation.None
+    WaitMessageComponent, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatInputModule, AccountingPipe, DatePipe, ScrollingModule]
 })
 export class TransactionTableComponent implements OnInit {
   displayedColumns: string[] = ['date','type','product','company','quantity','price','total'];
@@ -50,7 +49,10 @@ export class TransactionTableComponent implements OnInit {
   transactionType : number = 0;
   product : string = "";
   company : string = "";
-  
+
+  products : ListItem[] = [];
+  companies : ListItem[] = [];
+
   transTypes : ListItem[] = [
       { itemValue : 0, itemText: 'All' },
       { itemValue : 1, itemText: 'Purchase' },
@@ -62,6 +64,8 @@ export class TransactionTableComponent implements OnInit {
   readonly dialog = inject(MatDialog);
 
   ngOnInit(): void {
+    this.getCompanies();
+    this.getProducts();
     this.refresh();
   }
 
@@ -69,11 +73,27 @@ export class TransactionTableComponent implements OnInit {
     this.dataSource.refresh();
   }
   
+  public getProducts() : void {
+    this.service.getProducts(0, 0, '').subscribe((list : Product[]) => this.products = list.map((item) => new ListItem(item.id, item.longName)));
+  }
+
+  public getCompanies() : void {
+    this.service.getCustomers().subscribe((list : Department[]) => { 
+      this.companies = this.companies.concat(list.map((item) => new ListItem(item.id, item.name))); 
+    });
+    this.service.getSuppliers().subscribe((list : Department[]) => { 
+      this.companies = this.companies.concat(list.map((item) => new ListItem(item.id, item.name))); 
+    });
+  }
+
   addTransaction() : void {
     let dialogRef = this.dialog.open(AddTransactionDialog, { 
       data: {
         title: 'New Transaction',
         transaction: new Transaction,
+        products: this.products,
+        companies: this.companies,
+        transTypes: this.transTypes
       } }).afterClosed().subscribe(data => {
       if (data != "cancel") {
         console.log("Adding " + data);
@@ -89,6 +109,9 @@ export class TransactionTableComponent implements OnInit {
       data: { 
         title: 'Edit Transaction',
         transaction: structuredClone(transaction),
+        products: this.products,
+        companies: this.companies,
+        transTypes: this.transTypes
       } }).afterClosed().subscribe(data => {
       if (data != "cancel") {
         console.log("Updating " + data);
@@ -127,12 +150,17 @@ export class DeleteTransactionDialog {
 @Component({
   selector: 'add-transaction-dialog',
   templateUrl: 'add-transaction-dialog.html',
-  imports: [MatButtonModule, MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent, FormsModule, MatFormFieldModule, MatInputModule, SelectorComponent],
+  providers: [provideNativeDateAdapter()],
+  imports: [MatButtonModule, MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent, FormsModule, MatFormFieldModule, MatInputModule, SelectorComponent, MatDatepickerModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddTransactionDialog {
   readonly dialogRef = inject(MatDialogRef<AddTransactionDialog>);
+date: any;
   constructor(@Inject(MAT_DIALOG_DATA) public data: {
+    transTypes: ListItem[]|undefined;
+    products: ListItem[]|undefined;
+    companies: ListItem[]|undefined;
     title: string;
     transaction: Transaction;
     }) { }
