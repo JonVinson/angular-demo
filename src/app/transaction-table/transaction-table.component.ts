@@ -25,6 +25,7 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { AccountingPipe } from '../accounting.pipe';
 import { DatePipe } from '@angular/common';
+import { ScrollingModule } from '@angular/cdk/scrolling'
 
 /**
  * @title Basic use of `<table mat-table>`
@@ -36,7 +37,7 @@ import { DatePipe } from '@angular/common';
   templateUrl: 'transaction-table.component.html',
   providers: [provideNativeDateAdapter()],
   imports: [MatTableModule, MatButtonModule, SelectorComponent, MatFormFieldModule, TextFilterComponent,
-    WaitMessageComponent, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatInputModule, AccountingPipe, DatePipe],
+    WaitMessageComponent, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatInputModule, AccountingPipe, DatePipe, ScrollingModule],
   encapsulation: ViewEncapsulation.None
 })
 export class TransactionTableComponent implements OnInit {
