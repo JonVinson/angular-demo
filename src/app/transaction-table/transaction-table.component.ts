@@ -88,6 +88,7 @@ export class TransactionTableComponent implements OnInit {
 
   addTransaction() : void {
     let dialogRef = this.dialog.open(AddTransactionDialog, { 
+      panelClass: 'transaction-dialog',
       data: {
         title: 'New Transaction',
         transaction: new Transaction,
@@ -150,6 +151,7 @@ export class DeleteTransactionDialog {
 @Component({
   selector: 'add-transaction-dialog',
   templateUrl: 'add-transaction-dialog.html',
+  styleUrl: './add-transaction-dialog.scss',
   providers: [provideNativeDateAdapter()],
   imports: [MatButtonModule, MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent, FormsModule, MatFormFieldModule, MatInputModule, SelectorComponent, MatDatepickerModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
