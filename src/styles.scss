@@ -59,4 +59,14 @@ mat-form-field {
   ));
 }
 
+.transaction-dialog {
+    min-width: 400px!important;
+}
 
+#companies mat-form-field {
+  min-width: 95%
+}
+
+#products mat-form-field {
+  min-width: 95%;
+}

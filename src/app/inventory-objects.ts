@@ -12,6 +12,7 @@ export class Product {
   modelNumber: string = '';
   description: string = '';
   price: number = 0;
+  longName: string = '';
 }
 
 export class Transaction {

@@ -2,11 +2,16 @@
 <mat-dialog-content>
   <mat-form-field>
     <mat-label>Date</mat-label>
-    <input matInput [(ngModel)]="data.transaction.date" />
+    <input matInput [matDatepicker]="transDatePicker" [(ngModel)]="data.transaction.date">
+    <mat-datepicker-toggle matIconSuffix [for]="transDatePicker"></mat-datepicker-toggle>
+    <mat-datepicker #transDatePicker></mat-datepicker>
   </mat-form-field>
+  <app-selector label="Type" [source]="data.transTypes" [(selectedValue)]="data.transaction.transactionType"></app-selector>
+  <app-selector id="companies" label="Company" [source]="data.companies" [(selectedValue)]="data.transaction.companyId"></app-selector>
+  <app-selector id="products" label="Product" [source]="data.products" [(selectedValue)]="data.transaction.productId"></app-selector>
   <mat-form-field>
-    <mat-label>Product</mat-label>
-    <input matInput [(ngModel)]="data.transaction.productName" />
+    <mat-label>Quantity</mat-label>
+    <input matInput [(ngModel)]="data.transaction.quantity" />
   </mat-form-field>
   <mat-form-field>
     <mat-label>Price</mat-label>
