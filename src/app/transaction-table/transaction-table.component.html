@@ -36,6 +36,7 @@
               <th class="price-col text-right">Price</th>
               <th class="total-col text-right">Total</th>
               <th class="actions-col"></th>
+              <th class="dummy-col"></th>
           </tr>
       </thead>
       <cdk-virtual-scroll-viewport itemSize="50" class="scroll-viewport">
@@ -48,7 +49,11 @@
                   <td class="quant-col text-centered">{{item.quantity}}</td>
                   <td class="price-col text-right">{{item.price | accounting}}</td>
                   <td class="total-col text-right">{{item.price * item.quantity | accounting}}</td>
-                  <td class="actions-col"></td>
+                  <td class="actions-col">                    
+                    <button mat-flat-button (click)="editTransaction(item)" style="margin-left: 10px;margin-right: 10px;">Edit</button>
+                    <button mat-flat-button (click)="deleteTransaction(item.id!)">Delete</button>
+                  </td>
+                  <td class="dummy-col"></td>
               </tr>
           </tbody>
       </cdk-virtual-scroll-viewport>
