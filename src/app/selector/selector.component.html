@@ -1,9 +1,6 @@
 <mat-form-field>
   <mat-label>{{label()}}</mat-label>
   <mat-select [(value)]="selectedValue">
-    @if (firstItemValue() && firstItemText()) {
-      <mat-option [value]="firstItemValue()">{{firstItemText()}}</mat-option>
-    }
     @for (item of source(); track item) {
       <mat-option [value]="item.itemValue">{{item.itemText}}</mat-option>
     }
