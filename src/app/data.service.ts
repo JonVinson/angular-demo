@@ -233,7 +233,7 @@ export class DataService {
   updateTransaction(transaction: Transaction) : Observable<Object>  {
     const params = new HttpParams()
       .set('id', transaction.id!)
-      .set('date', transaction.date.toDateString())
+      .set('date', new Date(transaction.date).toDateString())
       .set('transactionType', transaction.transactionType)
       .set('productId', transaction.productId)
       .set('companyId', transaction.companyId)

@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, Inject, inject, model, OnInit, ViewEncapsulation} from '@angular/core';
 import {MatTableModule} from '@angular/material/table';
-import { Company, Product, Transaction } from '../inventory-objects';
+import { Supplier, Customer, Product, Transaction } from '../inventory-objects';
 import { MatButtonModule } from '@angular/material/button';
 import { DataService } from '../data.service';
 import {
@@ -52,14 +52,15 @@ export class TransactionTableComponent implements OnInit {
 
   products : ListItem[] = [];
   companies : ListItem[] = [];
-
+ 
   transTypes : ListItem[] = [
-      { itemValue : 0, itemText: 'All' },
       { itemValue : 1, itemText: 'Purchase' },
       { itemValue : 2, itemText: 'Sale' },
       { itemValue : 3, itemText: 'Return Purchase' },
       { itemValue : 4, itemText: 'Return Sale' },
     ];
+
+  transTypesExt : ListItem[] = [{ itemValue : 0, itemText: 'All'}, ...this.transTypes];
 
   readonly dialog = inject(MatDialog);
 
@@ -78,10 +79,10 @@ export class TransactionTableComponent implements OnInit {
   }
 
   public getCompanies() : void {
-    this.service.getCustomers().subscribe((list : Department[]) => { 
+    this.service.getCustomers().subscribe((list : Customer[]) => { 
       this.companies = this.companies.concat(list.map((item) => new ListItem(item.id, item.name))); 
     });
-    this.service.getSuppliers().subscribe((list : Department[]) => { 
+    this.service.getSuppliers().subscribe((list : Supplier[]) => { 
       this.companies = this.companies.concat(list.map((item) => new ListItem(item.id, item.name))); 
     });
   }

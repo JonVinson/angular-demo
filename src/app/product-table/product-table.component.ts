@@ -38,7 +38,9 @@ export class ProductTableComponent implements OnInit {
   dataSource = new TableDs<Product>(() => this.service.getProducts(this.departmentId, this.manufacturerId, this.description)); // ELEMENT_DATA;
   
   departments: ListItem[] = [];
+  departmentsExt: ListItem[] = [];
   manufacturers: ListItem[] = [];
+  manufacturersExt: ListItem[] = [];
 
   departmentId : number = 0;
   manufacturerId : number = 0;
@@ -104,11 +106,17 @@ export class ProductTableComponent implements OnInit {
   }
 
   public getDepartments() : void {
-    this.service.getDepartments().subscribe((list : Department[]) => this.departments = list.map((item) => new ListItem(item.id, item.name)));
+    this.service.getDepartments().subscribe((list : Department[]) => {
+      this.departments = list.map((item) => new ListItem(item.id, item.name));
+      this.departmentsExt = [{itemValue: 0, itemText: 'All'}, ...this.departments];
+    });
   }
 
   public getManufacturers() : void {
-    this.service.getManufacturers().subscribe((list : Manufacturer[]) => this.manufacturers = list.map((item) => new ListItem(item.id, item.name)));
+    this.service.getManufacturers().subscribe((list : Manufacturer[]) => {
+      this.manufacturers = list.map((item) => new ListItem(item.id, item.name));
+      this.manufacturersExt = [{itemValue: 0, itemText: 'All'}, ...this.manufacturers];
+    });
   }
 }
 

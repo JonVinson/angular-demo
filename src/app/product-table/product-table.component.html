@@ -4,8 +4,8 @@
     <div>
       <button mat-flat-button (click)="addProduct()">Add</button>
       <div class="float-right">
-        <app-selector label="Department" [source]="departments" [(selectedValue)]="departmentId" (selectedValueChange)="refresh()"></app-selector>
-        <app-selector label="Manufacturer" [source]="manufacturers" [(selectedValue)]="manufacturerId" (selectedValueChange)="refresh()"></app-selector>
+        <app-selector label="Department" [source]="departmentsExt" [(selectedValue)]="departmentId" (selectedValueChange)="refresh()"></app-selector>
+        <app-selector label="Manufacturer" [source]="manufacturersExt" [(selectedValue)]="manufacturerId" (selectedValueChange)="refresh()"></app-selector>
         <app-text-filter label="Description" [(text)]="description" (textChange)="refresh()"></app-text-filter>
       </div>
     </div>
