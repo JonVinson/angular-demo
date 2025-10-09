@@ -12,6 +12,9 @@ import { Observable } from 'rxjs/internal/Observable';
 export class SelectorComponent {
   label  = input<string>();
   source = input<ListItem[]>();
+  firstItemValue = input<any>(undefined);
+  firstItemText = input<string>();
+  
   selectedValue = model();
 }
 

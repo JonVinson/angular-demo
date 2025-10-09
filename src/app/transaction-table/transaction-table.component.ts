@@ -54,7 +54,6 @@ export class TransactionTableComponent implements OnInit {
   companies : ListItem[] = [];
 
   transTypes : ListItem[] = [
-      { itemValue : 0, itemText: 'All' },
       { itemValue : 1, itemText: 'Purchase' },
       { itemValue : 2, itemText: 'Sale' },
       { itemValue : 3, itemText: 'Return Purchase' },

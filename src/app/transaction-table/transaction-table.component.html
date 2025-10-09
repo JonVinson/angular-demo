@@ -16,7 +16,7 @@
           <mat-datepicker-toggle matIconSuffix [for]="endDatePicker"></mat-datepicker-toggle>
           <mat-datepicker #endDatePicker></mat-datepicker>
         </mat-form-field>
-        <app-selector label="Type" [source]="transTypes" [(selectedValue)]="transactionType" (selectedValueChange)="refresh()"></app-selector>
+        <app-selector label="Type" [source]="transTypes" firstItemValue="0" firstItemText="All" [(selectedValue)]="transactionType" (selectedValueChange)="refresh()"></app-selector>
         <app-text-filter label="Product" [(text)]="product" (textChange)="refresh()"></app-text-filter>
         <app-text-filter label="Company" [(text)]="company" (textChange)="refresh()"></app-text-filter>
       </div>
@@ -43,7 +43,7 @@
           <tbody>
               <tr *cdkVirtualFor="let item of dataSource">
                   <td class="date-col text-centered">{{item.date | date:'shortDate'}}</td>
-                  <td class="type-col text-centered">{{transTypes[item.transactionType].itemText}}</td>
+                  <td class="type-col text-centered">{{transTypes[(item.transactionType||1)-1]!.itemText}}</td>
                   <td class="prod-col">{{item.productName}}</td>
                   <td class="comp-col">{{item.companyName}}</td>
                   <td class="quant-col text-centered">{{item.quantity}}</td>
