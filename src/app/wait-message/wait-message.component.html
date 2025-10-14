@@ -1,6 +1,5 @@
 <div class="centered">
     <mat-spinner></mat-spinner>
 </div>
-<div class="centered">
-    <h1>{{ message() }}</h1>
+<div class="centered" [innerHTML]="message() || defaultMessage">
 </div>
