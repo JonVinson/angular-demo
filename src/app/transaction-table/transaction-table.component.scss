@@ -55,6 +55,10 @@ tr {
   height: 50px;
 }
 
+.table-wrapper {
+  background-color: rgb(250,249,253);
+}
+
 tr:nth-of-type(even) {
     background-color: rgba(0,0,0,0.05);
 }
