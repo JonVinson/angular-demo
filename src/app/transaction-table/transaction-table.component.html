@@ -42,16 +42,16 @@
       <cdk-virtual-scroll-viewport itemSize="50" class="scroll-viewport">
           <tbody>
               <tr *cdkVirtualFor="let item of dataSource">
-                  <td class="date-col text-centered">{{item.date | date:'shortDate'}}</td>
-                  <td class="type-col text-centered">{{transTypesExt[item.transactionType].itemText}}</td>
-                  <td class="prod-col">{{item.productName}}</td>
-                  <td class="comp-col">{{item.companyName}}</td>
-                  <td class="quant-col text-centered">{{item.quantity}}</td>
-                  <td class="price-col text-right">{{item.price | accounting}}</td>
-                  <td class="total-col text-right">{{item.price * item.quantity | accounting}}</td>
+                  <td class="date-col text-centered">{{item!.date | date:'shortDate'}}</td>
+                  <td class="type-col text-centered">{{transTypesExt[item!.transactionType].itemText}}</td>
+                  <td class="prod-col">{{item!.productName}}</td>
+                  <td class="comp-col">{{item!.companyName}}</td>
+                  <td class="quant-col text-centered">{{item!.quantity}}</td>
+                  <td class="price-col text-right">{{item!.price | accounting}}</td>
+                  <td class="total-col text-right">{{item!.price * item!.quantity | accounting}}</td>
                   <td class="actions-col">                    
-                    <button mat-flat-button (click)="editTransaction(item)" style="margin-left: 10px;margin-right: 10px;">Edit</button>
-                    <button mat-flat-button (click)="deleteTransaction(item.id!)">Delete</button>
+                    <button mat-flat-button (click)="editTransaction(item!)" style="margin-left: 10px;margin-right: 10px;">Edit</button>
+                    <button mat-flat-button (click)="deleteTransaction(item!.id!)">Delete</button>
                   </td>
                   <td class="dummy-col"></td>
               </tr>

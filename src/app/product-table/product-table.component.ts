@@ -21,6 +21,7 @@ import { map, Observable } from 'rxjs';
 import { Department } from '../inventory-objects';
 import { TextFilterComponent } from "../text-filter/text-filter.component";
 import { WaitMessageComponent } from "../wait-message/wait-message.component";
+import { ScrollDs } from '../scroll-ds';
 /**
  * @title Basic use of `<table mat-table>`
  */

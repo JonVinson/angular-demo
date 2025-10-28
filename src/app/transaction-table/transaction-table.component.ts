@@ -26,6 +26,7 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { AccountingPipe } from '../accounting.pipe';
 import { DatePipe } from '@angular/common';
 import { ScrollingModule } from '@angular/cdk/scrolling'
+import { ScrollDs } from '../scroll-ds';
 
 /**
  * @title Basic use of `<table mat-table>`
@@ -35,6 +36,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling'
   selector: 'transaction-table',
   styleUrl: 'transaction-table.component.scss',
   templateUrl: 'transaction-table.component.html',
+//  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [provideNativeDateAdapter()],
   imports: [MatTableModule, MatButtonModule, SelectorComponent, MatFormFieldModule, TextFilterComponent,
     WaitMessageComponent, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatInputModule, AccountingPipe, DatePipe, ScrollingModule]
@@ -42,7 +44,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling'
 export class TransactionTableComponent implements OnInit {
   displayedColumns: string[] = ['date','type','product','company','quantity','price','total'];
   service = inject(DataService);
-  dataSource = new TableDs<Transaction>(() => this.service.getTransactions(this.startDate, this.endDate, this.transactionType, this.product, this.company)); // ELEMENT_DATA;
+  dataSource = new ScrollDs<Transaction | undefined>(() => this.service.getTransactions(this.startDate, this.endDate, this.transactionType, this.product, this.company)); // ELEMENT_DATA;
   
   startDate : Date = new Date(2010, 0, 1);
   endDate : Date = new Date();
