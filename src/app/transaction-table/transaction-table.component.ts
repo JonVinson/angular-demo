@@ -36,7 +36,7 @@ import { ScrollDs } from '../scroll-ds';
   selector: 'transaction-table',
   styleUrl: 'transaction-table.component.scss',
   templateUrl: 'transaction-table.component.html',
-//  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [provideNativeDateAdapter()],
   imports: [MatTableModule, MatButtonModule, SelectorComponent, MatFormFieldModule, TextFilterComponent,
     WaitMessageComponent, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatInputModule, AccountingPipe, DatePipe, ScrollingModule]
@@ -44,7 +44,9 @@ import { ScrollDs } from '../scroll-ds';
 export class TransactionTableComponent implements OnInit {
   displayedColumns: string[] = ['date','type','product','company','quantity','price','total'];
   service = inject(DataService);
-  dataSource = new ScrollDs<Transaction | undefined>(() => this.service.getTransactions(this.startDate, this.endDate, this.transactionType, this.product, this.company)); // ELEMENT_DATA;
+  dataSource = new ScrollDs<Transaction | undefined>(
+    (skip: number, take: number, count: boolean) => this.service.getTransactions(this.startDate, this.endDate, this.transactionType, this.product, this.company, skip, take, count)
+  ); // ELEMENT_DATA;
   
   startDate : Date = new Date(2010, 0, 1);
   endDate : Date = new Date();
