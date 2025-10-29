@@ -36,7 +36,7 @@ import { ScrollDs } from '../scroll-ds';
   selector: 'transaction-table',
   styleUrl: 'transaction-table.component.scss',
   templateUrl: 'transaction-table.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  //changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [provideNativeDateAdapter()],
   imports: [MatTableModule, MatButtonModule, SelectorComponent, MatFormFieldModule, TextFilterComponent,
     WaitMessageComponent, MatDatepickerModule, FormsModule, ReactiveFormsModule, MatInputModule, AccountingPipe, DatePipe, ScrollingModule]
