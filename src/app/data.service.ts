@@ -205,13 +205,17 @@ export class DataService {
       return this.http.post(DataService.urlRoot + '/Product/Delete', params);
   }
 
-  getTransactions(startDate: Date, endDate: Date, transactionType: number, product: string, company: string ): Observable<Transaction[]> {
+  getTransactions(startDate: Date, endDate: Date, transactionType: number, product: string, company: string, skip: number, take: number, count: boolean): Observable<Transaction[]> {
     const params = new HttpParams()
       .set('startDate', startDate.toDateString())
       .set('endDate', endDate.toDateString())
       .set('transType', transactionType)
       .set('product', product)
-      .set('company', company);
+      .set('company', company)
+      .set('skip', skip)
+      .set('take', take)
+      .set('count', count)
+      ;
 
       return this.http.get<Transaction[]>(`${DataService.urlRoot}/Transaction/GetJson`, { params: params })
         .pipe(timeout(60000));
